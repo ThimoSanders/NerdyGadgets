@@ -10,4 +10,4 @@ om veranderingen binnen te halen van andere mensen
 
 ----
 om de status te zien
-git status
+`git status`
