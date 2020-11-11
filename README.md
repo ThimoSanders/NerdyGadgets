@@ -11,3 +11,10 @@ om veranderingen binnen te halen van andere mensen
 ----
 om de status te zien
 `git status`
+
+----
+om een branch aan te maken (Dit hoeft maar 1 keer!)
+`git branch branchnaam`
+
+om naar de branch te gaan
+`git checkout branchnaam`
