@@ -77,7 +77,7 @@ include "connect.php";
         </div>
         <ul id="ul-class-navigation">
             <li class="mr-2">
-                <a href="shoppingCart.php">
+                <a href="shoppingcart.php">
                     <i class="fas fa-shopping-cart"></i>
                     <div class="badge badge-danger">
                         <?php
