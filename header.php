@@ -76,6 +76,16 @@ include "connect.php";
             </ul>
         </div>
         <ul id="ul-class-navigation">
+            <li class="mr-2">
+                <a href="shoppingCart.php">
+                    <i class="fas fa-shopping-cart"></i>
+                    <div class="badge badge-danger">
+                        <?php
+                            isset($_SESSION['shoppingcart']) ? print count($_SESSION['shoppingcart']) : print 0;
+                        ?>
+                    </div>
+                </a>
+            </li>
             <li>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search" style="color:#676EFF;"></i> Zoeken</a>
             </li>
