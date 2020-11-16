@@ -53,9 +53,10 @@ include __DIR__ . "/header.php";
                 <div class="amount">
                     <span id="title">Aantal:&nbsp;</span>
                     <div class="ticker">
-                        <span id="up">&#8679;</span>
-                        <span id="amount"><?= $value?></span>
-                        <span id="down">&#8681;</span>
+<!--                        <span id="up">&#8679;</span>-->
+<!--                        <span id="amount">--><?//= $value?><!--</span>-->
+<!--                        <span id="down">&#8681;</span>-->
+                        <input type="number" min="0" max="">
                     </div>
                 </div>
                 <div class="price">
@@ -74,11 +75,15 @@ include __DIR__ . "/header.php";
         <span class="i" id="shipping">Verzendkosten: &euro;3,50</span>
         <span class="i" id="total">Totaal: &euro;<?= $totalPrice?></span>
 
-        <button class="i" id="Pay">Afrekenen</button>
+        <a href="checkout.php">
+            <button class="i" id="Pay">Afrekenen</button>
+        </a>
     </div>
 
 </section>
+<script>
 
+</script>
 
 <style type="text/css">
     body, html {
