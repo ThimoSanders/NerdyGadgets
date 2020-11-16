@@ -473,3 +473,19 @@ ul#ul-class-price li {
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
+.shoppingheader {
+    width: 80%;
+    max-width: 60rem;
+    margin: 0 auto;
+}
+.div1 {
+    width: 300px;
+    height: 100px;
+    border: 1px solid blue;
+}
+.shopping_cart {
+    width: 280px;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+}

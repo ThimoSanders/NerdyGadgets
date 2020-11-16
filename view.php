@@ -55,9 +55,13 @@ if ($R) {
                 <?php print $Result['Video']; ?>
             </div>
         <?php }
+        if (isset($_GET['success'])) {
+            if ($_GET['success']) {
         ?>
-
-
+            <div class="alert alert-success">Het product is toegevoegd!</div>
+        <?php } else { ?>
+            <div class="alert alert-danger">Er is iets fout gegaan tijdens het toevoegen, probeer het later nog eens.</div>
+         <?php }} ?>
         <div id="ArticleHeader">
             <?php
             if (isset($Images)) {
@@ -111,9 +115,14 @@ if ($R) {
 
 
             <h1 class="StockItemID">Artikelnummer: <?php print $Result["StockItemID"]; ?></h1>
-            <h2 class="StockItemNameViewSize StockItemName">
-                <?php print $Result['StockItemName']; ?>
-            </h2>
+            <div>
+                <h2 class="StockItemNameViewSize StockItemName"><?php print $Result['StockItemName']; ?></h2>
+                <form method="post" action="addCart.php">
+                    <input type="number" name="quantity" value="1" style="width: 75px" min="1" required>
+                    <input type="hidden" name="StockItemID" value="<?=$Result['StockItemID'] ?>">
+                    <button name="submitted" class="btn btn-primary">Toevoegen aan winkelwagen</button>
+                </form>
+            </div>
             <div class="QuantityText"><?php print $Result['QuantityOnHand']; ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
