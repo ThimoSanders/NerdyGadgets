@@ -71,7 +71,7 @@ if(isset($_GET["knop"])) {
         $password = $people[0]["HashedPassword"];
 
         if (password_verify($wachtwoord, $password)) {
-            print("inloggen gelukt.");
+            $_SESSION["login"] = ["FullName"=> $people[0]["FullName"], "LogonName"=>$account];
         }
         else {
             print("Het wachtwoord is verkeerd.");

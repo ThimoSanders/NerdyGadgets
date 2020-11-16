@@ -87,7 +87,15 @@ include "connect.php";
                 </a>
             </li>
             <li>
-                <a href="login.php" class="HrefDecoration"><i style="color:#676EFF;"></i> Inloggen</a>
+                <?php
+                if(isset($_SESSION['login'])) {
+                    print($_SESSION["login"]["FullName"]);
+                }
+                else {
+                    print('<a href="login.php" class="HrefDecoration"><i style="color:#676EFF;"></i> Inloggen</a>');
+                }
+                ?>
+                
 
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search" style="color:#676EFF;"></i> Zoeken</a>
             </li>
