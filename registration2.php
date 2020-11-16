@@ -38,11 +38,11 @@ if (isset($_POST['reg_user'])) {
 
     // if user exists
     if ($user) {
-        if ($user['LogonName'] === $FullName) {
+        if ($user['FullName'] === $FullName) {
             array_push($errors, "Username already exists");
         }
 
-        if ($user['EmailAddress'] === $EmailAddress) {
+        if ($user['LogonName'] === $EmailAddress) {
             array_push($errors, "email already exists");
         }
     }
