@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 $FullName = "";
 $EmailAddress    = "";
 $errors = array();
@@ -40,7 +38,7 @@ if (isset($_POST['reg_user'])) {
 
     // if user exists
     if ($user) {
-        if ($user['FullName'] === $FullName) {
+        if ($user['LogonName'] === $FullName) {
             array_push($errors, "Username already exists");
         }
 
@@ -65,6 +63,8 @@ if (isset($_POST['reg_user'])) {
         $_SESSION['username'] = $FullName;
         $_SESSION['success'] = "You are now logged in";
         // header('location: index.php');
+    } else {
+        echo "Niet top";
     }
 }
 
