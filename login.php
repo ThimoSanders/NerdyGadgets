@@ -1,5 +1,4 @@
 <?php
-session_start();
 include "connect.php";
 
 include __DIR__ . "/header.php";
@@ -29,7 +28,6 @@ include __DIR__ . "/header.php";
             <input type="submit" name="knop" value="Login" />
         </form>
         <br>
-
 
 
 <?php
@@ -74,12 +72,13 @@ if(isset($_GET["knop"])) {
             $_SESSION["login"] = ["FullName"=> $people[0]["FullName"], "LogonName"=>$account];
         }
         else {
-            print("Het wachtwoord is verkeerd.");
+            print("<div class='LoginMelding'> Het wachtwoord is verkeerd.</div>");
         }
 
     }
     elseif (count($people) == 0) { #Wanneer er niks terug komt van de database gebeurd er dit.
-        print("Er bestaat geen account met de ingevulde gegevens.");
+        #print("Er bestaat geen account met de ingevulde gegevens.");
+        print("<div class='LoginMelding'> Er bestaat geen account met de ingevulde gegevens.</div>");
     }
 
 }
