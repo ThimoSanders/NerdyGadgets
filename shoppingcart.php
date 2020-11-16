@@ -65,6 +65,7 @@ include __DIR__ . "/header.php";
 
             <?php
         }
+        $_SESSION['totalPrice'] = $totalPrice;
     }
     ?>
     <hr style="border-color: #000;margin-top: 70px">
