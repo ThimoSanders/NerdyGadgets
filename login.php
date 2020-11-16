@@ -14,13 +14,21 @@ include __DIR__ . "/header.php";
     <div class="login-box">
         <h1>Inloggen</h1><br><br>
         <form method="get" action="login.php">
-            <label for=""> Naam: </label>
-            <input type="text" name="naam" id="naam" required/><br>
-            <label for=""> Wachtwoord: </label>
-            <input type="password" name="wachtwoord" id ="wachtwoord"/><br>
+
+            <div class="textbox">
+                <b><label for=""> Naam: </label>
+                <input type="text" name="naam" id="naam" placeholder="email" required/><br>
+            </div>
+
+            <div class="textbox">
+                <label for=""> Wachtwoord: </label>
+                <input type="password" name="wachtwoord" id ="wachtwoord" placeholder="wachtwoord"/><br>
+            </div>
+
+
             <input type="submit" name="knop" value="Login" />
         </form>
-        <br><br>
+        <br>
 
 
 
@@ -63,10 +71,10 @@ if(isset($_GET["knop"])) {
         $password = $people[0]["HashedPassword"];
 
         if (password_verify($wachtwoord, $password)) {
-            print("test");
+            print("inloggen gelukt.");
         }
         else {
-            print("Het werkt niet.");
+            print("Het wachtwoord is verkeerd.");
         }
 
     }
@@ -82,7 +90,8 @@ if(isset($_GET["knop"])) {
         <br><br>
         <br>
         <a href="index.php">Terug naar homepagina</a>
-        <a href="registreer.php">Registreren</a>
+        <br>
+        <a href="registration.php">Registreren</a>
     </div>
 </body>
 </html>

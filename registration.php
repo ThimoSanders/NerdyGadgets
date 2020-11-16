@@ -1,41 +1,43 @@
-<?php include('registration2.php') ?>
+<?php include('registration2.php');
+include __DIR__ . "/header.php"; ?>
 <!DOCTYPE html>
     <html>
     <head>
         <title>Registratie</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="Public/CSS/style_login.css">
     </head>
     <body>
-    <div class="header">
-        <h2>Register</h2>
-    </div>
+    <div class="login-box">
+        <h1>Registreren</h1>
+        <form method="post" action="registration.php">
+            <?php
+            include('errors.php'); ?>
+            <div class="textbox">
+            <label><b>Naam:</label>
+                <div class="textbox">
+                    <input type="text" name="username" value="" placeholder="Naam">
+                </div>
+                    <label>Email:</label>
+                <div class="textbox">
+                    <input type="email" name="email" value="" placeholder="Email">
+                </div>
+                    <label>Wachtwoord:</label>
+                <div class="textbox">
+                    <input type="password" name="password_1" placeholder="Wachtwoord">
+                </div>
+                    <label>Bevestig wachtwoord:</label>
+                <div class="textbox">
+                    <input type="password" name="password_2" placeholder="wachtwoord">
+                </div>
 
-    <form method="post" action="registration.php">
-        <?php
-        include('errors.php'); ?>
-        <div class="input-group">
-            <label>Username</label>
-            <input type="text" name="username" value="">
+                <input type="submit" name="reg_user" value="Registreren" />
+        </form>
         </div>
-        <div class="input-group">
-            <label>Email</label>
-            <input type="email" name="email" value="">
-        </div>
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" name="password_1">
-        </div>
-        <div class="input-group">
-            <label>Confirm password</label>
-            <input type="password" name="password_2">
-        </div>
-        <div class="input-group">
-            <button type="submit" class="btn" name="reg_user" > Register</button>
-        </div>
-        <p>
-            Al een Lid? <a href="login.php">Sign in</a>
-        </p>
-    </form>
+    <h4>Al een Lid? <a href="login.php">Inloggen</a>
+
+
+
+
     </body>
     </html>
 

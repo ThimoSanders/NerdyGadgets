@@ -53,7 +53,7 @@ if (isset($_POST['reg_user'])) {
     if (count($errors) == 0) {
         $password = password_hash($password_1, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO people (FullName, EmailAddress, IsPermittedToLogon, HashedPassword, LastEditedBy) 
+        $query = "INSERT INTO people (FullName, LogonName, IsPermittedToLogon, HashedPassword, LastEditedBy) 
   			  VALUES('$FullName', '$EmailAddress', 'TRUE', '$password', 1)";
  //       mysqli_query($connectie, $query);
         if($connectie->query($query) === TRUE){
