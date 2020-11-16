@@ -13,7 +13,9 @@ include __DIR__ . "/header.php";
 
 
 <?php
-$totalPrice= 0;
+$totalPrice= $_SESSION['totalPrice'];
+$subTotaal= round($totalPrice/ 1.21, 2);
+$BTW= round($totalPrice - $subTotaal, 2);
 
 ?>
 
@@ -25,10 +27,10 @@ $totalPrice= 0;
                 <div class="row">
                     <div class="col-50">
                         <h3>Gegevens</h3>
-                        <label>Voornaam</label>
+                        <label>Volledige naam</label>
                         <input type="text" naam="vnaam" required/>
-                        <label>Achternaam</label>
-                        <input type="text" naam="anaam" required>
+                        <label>E-mail</label>
+                        <input type="text" naam="email" required>
                         <label>Land</label>
                         <input type="text" naam="land" required>
                         <label>Straat</label>
@@ -57,8 +59,8 @@ $totalPrice= 0;
                 <input type="submit" value="Bestelling afronden" class="kleur" >
 
                 <div>
-                    <label>Subtotaal: &euro;</label>
-                    <label>BTW: &euro;</label>
+                    <label>Subtotaal: &euro; <?= $subTotaal?></label>
+                    <label>BTW: &euro; <?= $BTW?></label>
                 </div>
 
 
