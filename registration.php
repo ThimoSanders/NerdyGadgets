@@ -82,13 +82,8 @@ if (isset($_POST['reg_user'])) {
     $result = mysqli_query($connectie, $user_check_query);
     $user = mysqli_fetch_assoc($result);
 
-// if user exists
+// if Email already exists
     if ($user) {
-        if ($user['FullName'] === $FullName) {
-            array_push($errors, "Username already exists");
-            echo "<br> Naam is al in gebruik";
-        }
-
         if ($user['LogonName'] === $EmailAddress) {
             array_push($errors, "email already exists");
             echo "<br> Email is al in gebruik";

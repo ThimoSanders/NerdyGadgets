@@ -15,7 +15,7 @@ include __DIR__ . "/header.php";
         <form method="post" action="login.php">
 
             <div class="textbox">
-                <b><label for=""> Naam: </label>
+                <b><label for=""> Email: </label>
                 <input type="text" name="naam" id="naam" placeholder="email" required/><br>
             </div>
 
