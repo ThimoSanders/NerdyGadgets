@@ -23,13 +23,15 @@ if (isset($_POST['reg_user'])) {
     $password_1 = mysqli_real_escape_string($connectie, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($connectie, $_POST['password_2']);
 
-    // form validation: ensure that the form is correctly filled ...
-    if (empty($FullName)) { array_push($errors, "Username is required"); }
-    if (empty($EmailAddress)) { array_push($errors, "Email is required"); }
-    if (empty($password_1)) { array_push($errors, "Password is required"); }
+    if (empty($FullName)) { array_push($errors, "Username is required");
+        echo "<br> Naam is niet ingevuld " ; }
+    if (empty($EmailAddress)) { array_push($errors, "Email is required");
+        echo "<br> Email is niet ingevuld "; }
+    if (empty($password_1)) { array_push($errors, "Password is required");
+        echo "<br> Wachtwoord is niet ingevuld "; }
     if ($password_1 != $password_2) {
         array_push($errors, "The two passwords do not match");
-    }
+        echo "<br> De twee wachtwoorden komen niet overheen"; }
 
     // a user does not already exist with the same username and/or email
     $user_check_query = "SELECT * FROM people WHERE FullName='$FullName' OR EmailAddress='$EmailAddress' LIMIT 1";
@@ -40,10 +42,12 @@ if (isset($_POST['reg_user'])) {
     if ($user) {
         if ($user['FullName'] === $FullName) {
             array_push($errors, "Username already exists");
+            echo "<br> ";
         }
 
         if ($user['LogonName'] === $EmailAddress) {
             array_push($errors, "email already exists");
+            echo "<br> Email is al in gebruik";
         }
     }
 
@@ -69,4 +73,3 @@ if (isset($_POST['reg_user'])) {
 }
 
 ?>
-
