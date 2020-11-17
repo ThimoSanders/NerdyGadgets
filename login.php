@@ -12,7 +12,7 @@ include __DIR__ . "/header.php";
     <body>
     <div class="login-box">
         <h1>Inloggen</h1><br><br>
-        <form method="get" action="login.php">
+        <form method="post" action="login.php">
 
             <div class="textbox">
                 <b><label for=""> Naam: </label>
@@ -32,11 +32,10 @@ include __DIR__ . "/header.php";
 
 <?php
 
-if(isset($_GET["knop"])) {
+if(isset($_POST["knop"])) {
 
-    $email = $_GET["naam"];
-    $wachtwoord = $_GET["wachtwoord"];
-
+    $email = $_POST["naam"];
+    $wachtwoord = $_POST["wachtwoord"];
     //VERBINDING MAKEN - Hier geef je de rechten en de locatie waar de database staat.
     $host = "localhost";
     $databasename = "nerdygadgets";
@@ -70,6 +69,7 @@ if(isset($_GET["knop"])) {
 
         if (password_verify($wachtwoord, $password)) {
             $_SESSION["login"] = ["FullName"=> $people[0]["FullName"], "LogonName"=>$account];
+            print("<div class='LoginMelding'> Je bent ingelogd!</div>");
         }
         else {
             print("<div class='LoginMelding'> Het wachtwoord is verkeerd.</div>");
