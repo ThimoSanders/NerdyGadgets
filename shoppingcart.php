@@ -20,6 +20,7 @@ include __DIR__ . "/header.php";
             //prints the key, in this case the "StockItemID"
 
             $Connection = mysqli_connect("localhost", "root", "", "nerdygadgets", "3306");
+
             $Query = "SELECT ImagePath
               FROM stockitemimages 
               WHERE StockItemID = ?";
@@ -29,9 +30,9 @@ include __DIR__ . "/header.php";
             $R = mysqli_stmt_get_result($Statement);
             $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
 
-            $Query = "SELECT StockItemName, RecommendedRetailPrice
-            FROM stockitems
-            WHERE StockItemID = ?";
+            $Query = "SELECT SI.StockItemID, SI.StockItemName, SI.RecommendedRetailPrice, SIH.QuantityOnHand
+            FROM stockitems AS SI JOIN stockitemholdings SIH ON SI.StockItemID = SIH.StockItemID WHERE SI.StockItemID = ?
+            ";
             $Statement = mysqli_prepare($Connection, $Query);
             mysqli_stmt_bind_param($Statement, "i", $productID);
             mysqli_stmt_execute($Statement);
@@ -40,26 +41,38 @@ include __DIR__ . "/header.php";
             $totalPrice += $N[0]['RecommendedRetailPrice'] * $value;
             ?>
 
-            <div id="item">
+            <div
+                    class="CartItem"
+                    id="item"
+                    data-price="<?=$N[0]['RecommendedRetailPrice']?>"
+                    data-id="<?=$productID?>"
+                    data-totalprice="<?=$N[0]['RecommendedRetailPrice'] * $value?>"
+            >
 
                 <!--        <span class="i" id="image"></span>-->
                 <div class="i" id="image"
                      style="background-image: url('Public/StockItemIMG/<?php print $R[0]['ImagePath']; ?>'); background-size: 60px; background-repeat: no-repeat; background-position: center;">
                 </div>
                 <div class="c-content">
-                    <span class="i" id="title">artikelnummer: <?= $productID?></span>
-                    <span class="i" id="subtitle"><?=$N[0]['StockItemName']?></span>
+                    <span class="i" id="title">artikelnummer: <?= $productID ?></span>
+                    <span class="i" id="subtitle"><?= $N[0]['StockItemName'] ?></span>
                 </div>
                 <div class="amount">
                     <span id="title">Aantal:&nbsp;</span>
                     <div class="ticker">
-                        <span id="up">&#8679;</span>
-                        <span id="amount"><?= $value?></span>
-                        <span id="down">&#8681;</span>
+                        <input
+                                class="ShoppingQuantity"
+                                type="number"
+                                min="0" max="<?=$N[0]['QuantityOnHand']?>"
+                                value="<?=$value?>"
+                                data-itemid="<?=$productID?>"
+                        >
                     </div>
                 </div>
                 <div class="price">
-                    <span id="value">&euro; <?=$N[0]['RecommendedRetailPrice'] * $value?></span>
+                    <span class="CartItemPrice" id="value">
+                        &euro;<?=$N[0]['RecommendedRetailPrice'] * $value?>
+                    </span>
                 </div>
             </div>
 
@@ -71,14 +84,60 @@ include __DIR__ . "/header.php";
     <hr style="border-color: #000;margin-top: 70px">
 
     <div class="__q98">
-        <span class="i" id="shipping">Verzendkosten: &euro;3,50</span>
-        <span class="i" id="total">Totaal: &euro;<?= $totalPrice?></span>
-
-        <button class="i" id="Pay">Afrekenen</button>
+        <!--        <span class="i" id="shipping">Verzendkosten: &euro;3,50</span>-->
+        <span class="i" id="total">Totaal: &euro;<?=$totalPrice?></span>
+        <a href="checkout.php">
+            <button class="i" id="Pay">Afrekenen</button>
+        </a>
     </div>
 
 </section>
+<script>
+    function calculateTotalPrice(element) {
+        let total = 0;
+        if (element) {
+            $(".CartItem").each(index => {
+                let el = $($(".CartItem")[index]);
+                if (el.data('id') != element.data('id')) {
+                    total += parseFloat($(el).data('totalprice'));
+                }
+            });
+        } else {
+            $(".CartItem").each(index => {
+                let el = $($(".CartItem")[index]);
+                total += parseFloat($(el).data('totalprice'));
+            });
+        }
 
+        return total;
+    }
+    $(".ShoppingQuantity").change((e) => {
+        let target = $(e.target);
+        let element = target.closest(".CartItem");
+        let ItemID = target.data('itemid');
+        let quantity = e.target.value;
+        let price = element.data('price');
+        let priceElement = element.find('.CartItemPrice');
+
+        let url = "<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>";
+        fetch('http://'+url+`/editCart.php?ItemID=${ItemID}&Quantity=${quantity}&Price=${price}&TotalPrice=${calculateTotalPrice(element)}`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.error) {
+                    console.warn(res.error);
+                } else if(res.message === "success") {
+                    if (quantity == 0) {
+                        element.remove();
+                    } else {
+                        let value = (price * quantity).toFixed(2);
+                        element.data('totalprice', value);
+                        priceElement.text('€'+ value);
+                    }
+                    $("#total").text('Totaal: €'+calculateTotalPrice().toFixed(2));
+                }
+            });
+    });
+</script>
 
 <style type="text/css">
     body, html {
@@ -96,6 +155,7 @@ include __DIR__ . "/header.php";
         padding: 30px 0;
         border: 2px solid #000;
     }
+
     #nav > #title {
         text-transform: uppercase;
         text-align: center;
@@ -122,6 +182,7 @@ include __DIR__ . "/header.php";
         margin: 25px 0;
         position: relative;
     }
+
     .mid-wrapper > #item > #image {
         --size: 60px;
         position: absolute;
@@ -133,21 +194,24 @@ include __DIR__ . "/header.php";
         left: 20px;
         transform: translateY(-50%);
     }
+
     .mid-wrapper > #item > .c-content {
         margin-left: 80px;
         display: block;
     }
+
     .mid-wrapper > #item > .c-content > .i {
         display: block;
         padding: 5px 0;
     }
+
     .mid-wrapper > #item > .c-content > span:nth-child(1) {
         font-size: 15px;
     }
+
     .mid-wrapper > #item > .c-content > span:nth-child(2) {
         font-size: 20px;
     }
-
 
 
     .mid-wrapper > #item > .amount {
@@ -164,15 +228,16 @@ include __DIR__ . "/header.php";
     .mid-wrapper > #item > .amount > #title {
 
     }
+
     .mid-wrapper > #item > .amount > .ticker {
         position: absolute;
-        width: 35px;
+        width: 75px;
         height: 60px;
         display: block;
         margin-top: -40px;
         margin-left: 60px;
-        border: 2px solid #000;
     }
+
     .mid-wrapper > #item > .amount > .ticker > #up,
     .mid-wrapper > #item > .amount > .ticker > #amount,
     .mid-wrapper > #item > .amount > .ticker > #down {
