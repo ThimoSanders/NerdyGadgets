@@ -22,28 +22,28 @@ $BTW= round($totalPrice - $subTotaal, 2);
 <div class="row">
     <div class="col-75">
         <div class="container">
-            <form method="get" action="paid.php">
+            <form method="post" action="paid.php">
 <!--De gebruiker moet zijn NAW gegevens kunnen invullen en als er iets niet ingevuld wordt krijgt hij/zij een melding-->
                 <div class="row">
                     <div class="col-50">
                         <h3>Gegevens</h3>
                         <label>Volledige naam</label>
-                        <input type="text" naam="vnaam" required/>
+                        <input type="text" name="vnaam" required/>
                         <label>E-mail</label>
-                        <input type="text" naam="email" required>
+                        <input type="text" name="email" required>
                         <label>Land</label>
-                        <input type="text" naam="land" required>
+                        <input type="text" name="land" required>
                         <label>Straat</label>
-                        <input type="text" naam="straat" required>
+                        <input type="text" name="straat" required>
 <!--Aan het eind van de gegevens komen er 2 velden naast elkaar-->
                         <div class="row">
                             <div class="col-50">
                                 <label>Huisnummer</label>
-                                <input type="text" naam="huisnummer" required>
+                                <input type="text" name="huisnummer" required>
                             </div>
                             <div class="col-50">
                                 <label>Postcode</label>
-                                <input type="text" naam="postcode" required>
+                                <input type="text" name="postcode" required>
                             </div>
                         </div>
                     </div>
@@ -56,8 +56,8 @@ $BTW= round($totalPrice - $subTotaal, 2);
                     </div>
 
                 </div>
-                <input type="submit" value="Bestelling afronden" class="kleur" >
-
+                <input type="submit" name="knop" value="Bestelling afronden" class="kleur" >
+<!---->
                 <div>
                     <label>Subtotaal: &euro; <?= $subTotaal?></label>
                     <label>BTW: &euro; <?= $BTW?></label>
@@ -74,7 +74,6 @@ $BTW= round($totalPrice - $subTotaal, 2);
             </form>
         </div>
     </div>
-
 
 </body>
 </html>
