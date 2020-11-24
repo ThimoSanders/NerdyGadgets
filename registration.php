@@ -72,6 +72,19 @@ if (isset($_POST['reg_user'])) {
         array_push($errors, "Password is required");
         echo "<br> Wachtwoord is niet ingevuld";
     }
+    $hoofdletter = preg_match('@[A-Z]@', $password_1);
+    $kleineletter = preg_match('@[a-z]@', $password_1);
+    $nummer = preg_match('@[0-9]{2,}@', $password_1);
+    $karater = preg_match('@[^\w]@', $password_1);
+
+    if(!$hoofdletter || !$kleineletter || !$nummer || !$karater || strlen($password_1) < 8) {
+        array_push($errors, "The two passwords do not match");
+        print("Het wachtwoord voldoet niet aan de eisen!");
+    }
+    else {
+        print("Het werkt");
+    }
+
     if ($password_1 != $password_2) {
         array_push($errors, "The two passwords do not match");
         echo "<br> De twee wachtwoorden komen niet overheen ";
