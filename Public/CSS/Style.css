@@ -6,6 +6,8 @@ body {
     overflow-x:hidden;
     color: #FFF !important;
     background-color: rgb(35, 35, 47) !important;
+    font-family: Arial;
+    font-size: 17px;
 }
 @font-face {
     font-family: MmrText;
