@@ -84,7 +84,7 @@ ul#ul-class-navigation li {
     border-bottom: 1px solid rgb(36, 41, 143);
 }
 #Content {
-    margin-top: 200px;
+    margin-top: 50px;
 }
 #FilterFrame {
     position: fixed;
@@ -239,7 +239,6 @@ ul#ul-class-navigation li {
     background-image: url("../ProductIMGHighRes/NerdyGadgetsLogo.png");
     width: 250px;
     height: 90px;
-    margin: 55px 55px 55px 10%;
 }
 ul#ul-class li {
     display: inline;
@@ -488,4 +487,9 @@ ul#ul-class-price li {
     margin: 0 auto;
     top: 50%;
     left: 50%;
+}
+
+.shopping_cart_icon {
+    margin-top: 7px;
+    margin-bottom: 7px;
 }
