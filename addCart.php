@@ -18,6 +18,12 @@ try {
         $_SESSION['shoppingcart'][$_POST['StockItemID']] = $_POST['quantity'];
     }
 
+    $totalAmount = 0;
+    foreach ($_SESSION['shoppingcart'] as $value) {
+        $totalAmount += $value;
+    }
+    $_SESSION['shoppingcart_amount'] = $totalAmount;
+
     header('Location: '.$_SERVER['HTTP_REFERER']."&success=1");
     exit();
 } catch (Exception $exception) {

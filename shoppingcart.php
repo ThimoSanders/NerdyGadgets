@@ -57,7 +57,7 @@ include __DIR__ . "/header.php";
                     <span class="i" id="title">artikelnummer: <?= $productID ?></span>
                     <span class="i" id="subtitle"><?= $N[0]['StockItemName'] ?></span>
                 </div>
-                <div class="amount">
+                <div class="amount" data-itemid="<?=$productID?>">
                     <span id="title">Aantal:&nbsp;</span>
                     <div class="ticker">
                         <input
@@ -65,9 +65,11 @@ include __DIR__ . "/header.php";
                                 type="number"
                                 min="0" max="<?=$N[0]['QuantityOnHand']?>"
                                 value="<?=$value?>"
-                                data-itemid="<?=$productID?>"
                         >
                     </div>
+                    <button class="btn btn-outline-danger" onclick="removeItem()">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
                 </div>
                 <div class="price">
                     <span class="CartItemPrice" id="value">
@@ -93,6 +95,9 @@ include __DIR__ . "/header.php";
 
 </section>
 <script>
+    function removeItem() {
+        updateShoppingCart(this.event, true);
+    }
     function calculateTotalPrice(element) {
         let total = 0;
         if (element) {
@@ -111,11 +116,11 @@ include __DIR__ . "/header.php";
 
         return total;
     }
-    $(".ShoppingQuantity").change((e) => {
+    function updateShoppingCart(e, remove) {
         let target = $(e.target);
         let element = target.closest(".CartItem");
-        let ItemID = target.data('itemid');
-        let quantity = e.target.value;
+        let ItemID = target.closest(".amount").data('itemid');
+        let quantity = remove ? 0 : e.target.value;
         let price = element.data('price');
         let priceElement = element.find('.CartItemPrice');
 
@@ -133,9 +138,13 @@ include __DIR__ . "/header.php";
                         element.data('totalprice', value);
                         priceElement.text('€'+ value);
                     }
+                    $("#shoppingcartAmount").text(res.totalAmount);
                     $("#total").text('Totaal: €'+calculateTotalPrice().toFixed(2));
                 }
             });
+    }
+    $(".ShoppingQuantity").change((e) => {
+        updateShoppingCart(e);
     });
 </script>
 
@@ -225,8 +234,14 @@ include __DIR__ . "/header.php";
         transform: translateY(-50%);
     }
 
-    .mid-wrapper > #item > .amount > #title {
-
+    .mid-wrapper > #item > .amount > button {
+        color: #F54052;
+        position: absolute;
+        margin-top: -10px;
+        margin-left: 100px;
+    }
+    .mid-wrapper > #item > .amount > button:hover {
+        color:white;
     }
 
     .mid-wrapper > #item > .amount > .ticker {

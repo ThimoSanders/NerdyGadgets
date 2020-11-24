@@ -87,9 +87,9 @@ $HeaderStockGroups = mysqli_stmt_get_result($Statement);
                 <li class="nav-item">
                     <a href="shoppingcart.php">
                         <i class="fas fa-shopping-cart shopping_cart_icon" style="color:#676EFF;"></i>
-                        <div class="badge badge-danger">
+                        <div class="badge badge-danger" id="shoppingcartAmount">
                             <?php
-                                isset($_SESSION['shoppingcart']) ? print count($_SESSION['shoppingcart']) : print 0;
+                                isset($_SESSION['shoppingcart_amount']) ? print $_SESSION['shoppingcart_amount'] : print 0;
                             ?>
                         </div>
                     </a>
