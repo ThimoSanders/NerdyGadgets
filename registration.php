@@ -10,8 +10,6 @@ include __DIR__ . "/header.php"; ?>
     <div class="login-box">
         <h1>Registreren</h1>
         <form method="post" action="registration.php">
-            <?php
-            include('errors.php'); ?>
             <div class="textbox">
             <label><b>Naam:</label>
                 <div class="textbox">
@@ -41,7 +39,7 @@ include __DIR__ . "/header.php"; ?>
 <?php
 $FullName = "";
 $EmailAddress = "";
-$errors = array();
+$errors = FALSE;
 
 $host = "localhost";
 $databasename = "nerdygadgets";
@@ -61,20 +59,20 @@ if (isset($_POST['reg_user'])) {
     $password_2 = mysqli_real_escape_string($connectie, $_POST['password_2']);
 
     if (empty($FullName)) {
-        array_push($errors, "Username is required");
-        echo "<br> Naam is niet ingevuld ";
+        $errors = TRUE;
+        echo "<br> Naam is niet ingevuld. ";
     }
     if (empty($EmailAddress)) {
-        array_push($errors, "Email is required");
-        echo "<br> Email is niet ingevuld ";
+        $errors = TRUE;
+        echo "<br> Email is niet ingevuld. ";
     }
     if (empty($password_1)) {
-        array_push($errors, "Password is required");
-        echo "<br> Wachtwoord is niet ingevuld";
+        $errors = TRUE;
+        echo "<br> Wachtwoord is niet ingevuld. ";
     }
     if ($password_1 != $password_2) {
-        array_push($errors, "The two passwords do not match");
-        echo "<br> De twee wachtwoorden komen niet overheen ";
+        $errors = TRUE;
+        echo "<br> De twee wachtwoorden komen niet overheen. ";
     }
 
 // a user does not already exist with the same username and/or email
@@ -85,25 +83,26 @@ if (isset($_POST['reg_user'])) {
 // if Email already exists
     if ($user) {
         if ($user['LogonName'] === $EmailAddress) {
-            array_push($errors, "email already exists");
-            echo "<br> Email is al in gebruik";
+            $errors = TRUE;
+            echo "<br> Email is al in gebruik. ";
         }
     }
 // register user if there are no errors
-    if (count($errors) == 0) {
+    if ($errors == FALSE) {
         $password = password_hash($password_1, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO people (FullName, LogonName, IsPermittedToLogon, HashedPassword, LastEditedBy) 
-            VALUES('$FullName', '$EmailAddress', 'TRUE', '$password', 1)";
+        $query = "INSERT INTO people (FullName, LogonName, HashedPassword, IsPermittedToLogon, LastEditedBy) 
+            VALUES( ?, ?, ?, 'TRUE', 1)";
         $statement = mysqli_prepare($connectie, $query);
+        mysqli_stmt_bind_param($statement, "sss", $FullName, $EmailAddress, $password);
         mysqli_stmt_execute($statement);
 
-        echo "<br> U bent geregistreerd";
+        echo "<br> U bent geregistreerd. ";
 
         //       mysqli_query($connectie, $query);
 
         $_SESSION['username'] = $FullName;
-        $_SESSION['success'] = "You are now logged in";
+        $_SESSION["login"] = ["FullName"=> $FullName, "LogonName"=>$EmailAddress];
 
         // header('location: index.php');
     }
