@@ -91,7 +91,7 @@ if (isset($_POST['reg_user'])) {
     $karater = preg_match('@[^\w]@', $password_1);
 
     if(!$hoofdletter || !$kleineletter || !$nummer || !$karater || strlen($password_1) < 8) {
-        array_push($errors, "The two passwords do not match");
+        $errors = TRUE;
         print("Het wachtwoord voldoet niet aan de eisen!");
     }
     else {
