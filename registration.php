@@ -27,6 +27,18 @@ include __DIR__ . "/header.php"; ?>
                 <div class="textbox">
                     <input type="password" name="password_2" placeholder="wachtwoord">
                 </div>
+                <label>Land:</label>
+                <div class="textbox">
+                    <input type="Land" name="country" placeholder="Land">
+                </div>
+                <label>Adres:</label>
+                <div class="textbox">
+                    <input type="Address" name="address" placeholder="Adres">
+                </div>
+                <label>Postcode:</label>
+                <div class="textbox">
+                    <input type="Postalcode" name="postalcode" placeholder="Postcode">
+                </div>
 
                 <input type="submit" name="reg_user" value="Registreren" />
         </form>
@@ -57,6 +69,9 @@ if (isset($_POST['reg_user'])) {
     $EmailAddress = mysqli_real_escape_string($connectie, $_POST['email']);
     $password_1 = mysqli_real_escape_string($connectie, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($connectie, $_POST['password_2']);
+    $Country = mysqli_real_escape_string($connectie, $_POST['country']);
+    $Address = mysqli_real_escape_string($connectie, $_POST['address']);
+    $Postalcode = mysqli_real_escape_string($connectie, $_POST['postalcode']);
 
     if (empty($FullName)) {
         $errors = TRUE;
@@ -73,6 +88,18 @@ if (isset($_POST['reg_user'])) {
     if ($password_1 != $password_2) {
         $errors = TRUE;
         echo "<br> De twee wachtwoorden komen niet overheen. ";
+    }
+    if (empty($Country)) {
+        $errors = TRUE;
+        echo "<br> Land is niet ingevuld. ";
+    }
+    if (empty($Address)) {
+        $errors = TRUE;
+        echo "<br> Adres is niet ingevuld. ";
+    }
+    if (empty($Postalcode)) {
+        $errors = TRUE;
+        echo "<br> Postcode is niet ingevuld. ";
     }
 
 // a user does not already exist with the same username and/or email
@@ -91,20 +118,17 @@ if (isset($_POST['reg_user'])) {
     if ($errors == FALSE) {
         $password = password_hash($password_1, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO people (FullName, LogonName, HashedPassword, IsPermittedToLogon, LastEditedBy) 
-            VALUES( ?, ?, ?, 'TRUE', 1)";
+        $query = "INSERT INTO people (FullName, LogonName, HashedPassword, Country, Address, Postalcode, IsPermittedToLogon, LastEditedBy) 
+            VALUES( ?, ?, ?, ?, ?, ?, 'TRUE', 1)";
         $statement = mysqli_prepare($connectie, $query);
-        mysqli_stmt_bind_param($statement, "sss", $FullName, $EmailAddress, $password);
+        mysqli_stmt_bind_param($statement, "ssssss", $FullName, $EmailAddress, $password, $Country, $Address, $Postalcode);
         mysqli_stmt_execute($statement);
 
         echo "<br> U bent geregistreerd. ";
 
-        //       mysqli_query($connectie, $query);
-
         $_SESSION['username'] = $FullName;
         $_SESSION["login"] = ["FullName"=> $FullName, "LogonName"=>$EmailAddress];
 
-        // header('location: index.php');
     }
 }
 ?>
