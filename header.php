@@ -54,7 +54,7 @@ $HeaderStockGroups = mysqli_stmt_get_result($Statement);
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light w-100" style="font-weight: bold">
         <a class="navbar-brand" href="./">
             <div id="LogoImage"></div>
         </a>
