@@ -6,9 +6,8 @@ include __DIR__ . "/header.php";
 $Query = " 
            SELECT SI.StockItemID, 
             (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, 
-            StockItemName,
-            CONCAT('Voorraad: ',QuantityOnHand)AS QuantityOnHand,
-            SearchDetails, 
+            StockItemName,QuantityOnHand,
+            SearchDetails,  
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
@@ -123,7 +122,13 @@ if ($R) {
                     <button name="submitted" class="btn btn-primary">Toevoegen aan winkelwagen</button>
                 </form>
             </div>
-            <div class="QuantityText"><?php print $Result['QuantityOnHand']; ?></div>
+            <div class="QuantityText"><?php if (($Result['QuantityOnHand'] >0 && $Result['QuantityOnHand'] <100)){
+                                                print ("Beperkte voorraad beschikbaar");}
+                                            if (($Result['QuantityOnHand'] <=0 )){
+                                                print("Tijdelijk uitverkocht");}
+                                            if (($Result['QuantityOnHand'] >=100)){
+                                                print ("Ruime voorraad beschikbaar");}
+                                            ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
                     <div class="CenterPriceLeftChild">
