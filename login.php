@@ -78,13 +78,13 @@ if(isset($_POST["knop"])) {
         }
         else {
 ?>
-            <div class='LoginMelding'> Het wachtwoord is verkeerd.</div>
+            <div class='LoginMelding'> De gegevens kloppen niet.</div>
         <?php
         }
 
     }
     elseif (count($people) == 0) { #Wanneer er niks terug komt van de database gebeurd er dit.
-        print("<div class='LoginMelding'> Er bestaat geen account met de ingevulde gegevens.</div>");
+        print("<div class='LoginMelding'> De gegevens kloppen niet.</div>");
     }
 }
 

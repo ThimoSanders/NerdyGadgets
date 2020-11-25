@@ -43,7 +43,7 @@ include __DIR__ . "/header.php"; ?>
                 <input type="submit" name="reg_user" value="Registreren" />
         </form>
         </div>
-    <h4>Al een Lid? <a href="login.php">Inloggen</a>
+    <h4>Al een Lid? <a href="login.php">Inloggen</a><br>
 
     </body>
     </html>
