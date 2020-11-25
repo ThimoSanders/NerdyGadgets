@@ -9,7 +9,7 @@ include __DIR__ . "/header.php";
     <h1>
         winkelwagen
     </h1>
-
+    <div class="emptyShoppingcart">
     <?php
     $totalPrice = 0;
     if (!isset($_SESSION['shoppingcart'])) {
@@ -40,7 +40,7 @@ include __DIR__ . "/header.php";
             $N = mysqli_fetch_all($N, MYSQLI_ASSOC);
             $totalPrice += $N[0]['RecommendedRetailPrice'] * $value;
             ?>
-
+            </div>
             <div
                     class="CartItem"
                     id="item"
@@ -125,7 +125,8 @@ include __DIR__ . "/header.php";
         let priceElement = element.find('.CartItemPrice');
 
         let url = "<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>";
-        fetch('http://'+url+`/editCart.php?ItemID=${ItemID}&Quantity=${quantity}&Price=${price}&TotalPrice=${calculateTotalPrice(element)}`)
+        let fetchURL = 'http://'+url+`/editCart.php?ItemID=${ItemID}&Quantity=${quantity}&Price=${price}&TotalPrice=${calculateTotalPrice(element)}`;
+        fetch(fetchURL)
             .then(res => res.json())
             .then(res => {
                 if (res.error) {
@@ -140,6 +141,9 @@ include __DIR__ . "/header.php";
                     }
                     $("#shoppingcartAmount").text(res.totalAmount);
                     $("#total").text('Totaal: €'+calculateTotalPrice().toFixed(2));
+                    if (res.totalAmount == 0) {
+                        $(".emptyShoppingcart").html("<h1>Er zit niks in je winkelwagen</h1>")
+                    }
                 }
             });
     }
@@ -147,7 +151,6 @@ include __DIR__ . "/header.php";
         updateShoppingCart(e);
     });
 </script>
-
 <style type="text/css">
     body, html {
         margin: 0;

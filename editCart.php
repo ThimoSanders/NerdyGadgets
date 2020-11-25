@@ -27,8 +27,10 @@ try {
     }
 
     $totalAmount = 0;
-    foreach ($_SESSION['shoppingcart'] as $value) {
-        $totalAmount += $value;
+    if (isset($_SESSION['shoppingcart'])) {
+        foreach ($_SESSION['shoppingcart'] as $value) {
+            $totalAmount += $value;
+        }
     }
     $_SESSION['shoppingcart_amount'] = $totalAmount;
 
