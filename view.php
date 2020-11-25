@@ -120,8 +120,9 @@ if ($R) {
                 <form method="post" action="addCart.php">
                     <input type="number" name="quantity" value="1" style="width: 75px" min="1" required>
                     <input type="hidden" name="StockItemID" value="<?=$Result['StockItemID'] ?>">
-                    <button name="submitted" class="btn btn-primary">Toevoegen aan winkelwagen</button>
+                    <button name="submitted" class="btn btn-success buttonBold">Toevoegen aan winkelwagen</button>
                 </form>
+
             </div>
             <div class="QuantityText"><?php print $Result['QuantityOnHand']; ?></div>
             <div id="StockItemHeaderLeft">

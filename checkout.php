@@ -1,6 +1,9 @@
 <?php
+
 include __DIR__ . "/header.php";
+
 ?>
+
 <!--Na het indrukken van de bestelling afronden knop wordt de gebruiker doorverwezen naar de paid pagina-->
 <!DOCTYPE html>
 <html>
@@ -13,6 +16,7 @@ include __DIR__ . "/header.php";
 
 
 <?php
+
 $totalPrice= $_SESSION['totalPrice'];
 $subTotaal= round($totalPrice/ 1.21, 2);
 $BTW= round($totalPrice - $subTotaal, 2);
@@ -51,12 +55,12 @@ $BTW= round($totalPrice - $subTotaal, 2);
                     <div class="col-50">
                         <h3>Betalingsmethodes</h3>
                         <div class="icon-container">
-                            <i class="fa fa-cc-visa" style="color:#f5f4f4;"></i>
+                            <i class="fa fa-cc-visa" style="color:#FFFFFF;"></i>
                         </div>
                     </div>
 
                 </div>
-                <input type="submit" name="knop" value="Bestelling afronden" class="kleur" >
+                <input type="submit" name="knop" value="Bestelling afronden" class="kleur buttonBold" >
 <!---->
                 <div>
                     <label>Subtotaal: &euro; <?= $subTotaal?></label>
