@@ -43,145 +43,184 @@ if ($R) {
     $Images = $R;
 }
 ?>
-<div id="CenteredContent">
+<!--<div class="container">-->
     <?php
-    if ($Result != null) {
-        ?>
-        <?php
-        if (isset($Result['Video'])) {
+    if (isset($_GET['success'])) {
+        if ($_GET['success']) {
             ?>
-            <div id="VideoFrame">
-                <?php print $Result['Video']; ?>
-            </div>
-        <?php }
-        if (isset($_GET['success'])) {
-            if ($_GET['success']) {
-        ?>
             <div class="alert alert-success">Het product is toegevoegd!</div>
         <?php } else { ?>
-            <div class="alert alert-danger">Er is iets fout gegaan tijdens het toevoegen, probeer het later nog eens.</div>
-         <?php }} ?>
-        <div id="ArticleHeader">
-            <?php
-            if (isset($Images)) {
-                // print Single
-                if (count($Images) == 1) {
-                    ?>
-                    <div id="ImageFrame"
-                         style="background-image: url('Public/StockItemIMG/<?php print $Images[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
-                    <?php
-                } else if (count($Images) >= 2) { ?>
-                    <div id="ImageFrame">
-                        <div id="ImageCarousel" class="carousel slide" data-interval="false">
-                            <!-- Indicators -->
-                            <ul class="carousel-indicators">
-                                <?php for ($i = 0; $i < count($Images); $i++) {
+            <div class="alert alert-danger">Er is iets fout gegaan tijdens het toevoegen, probeer het later nog eens.
+            </div>
+        <?php }
+    }
+    if ($Result != null) {
+        ?>
+        <div class="row mt-2 StockItemDescriptionBox p-3">
+            <div class="col-lg-4">
+                <?php
+                if (isset($Images)) {
+                    // print Single
+                    if (count($Images) == 1) {
+                        ?>
+                        <img class="w-100" src="Public/StockItemIMG/<?= $Images[0]['ImagePath']; ?>"/>
+                        <?php
+                    } else if (count($Images) >= 2) { ?>
+<!--                            TODO: fix height images, set some sort of fixed height -->
+                        <div id="carouselExampleIndicators" class="carousel slide">
+                            <ol class="carousel-indicators">
+                                <?php
+                                for ($i = 0; $i < count($Images); $i++) {
                                     ?>
-                                    <li data-target="#ImageCarousel"
-                                        data-slide-to="<?php print $i ?>" <?php print (($i == 0) ? 'class="active"' : ''); ?>></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="<?= $i ?>"
+                                        class="<?php print ($i == 0) ? 'active' : ''; ?>"></li>
                                     <?php
-                                } ?>
-                            </ul>
-
-                            <!-- The slideshow -->
+                                }
+                                ?>
+                            </ol>
                             <div class="carousel-inner">
-                                <?php for ($i = 0; $i < count($Images); $i++) {
+                                <?php
+                                for ($i = 0; $i < count($Images); $i++) {
                                     ?>
                                     <div class="carousel-item <?php print ($i == 0) ? 'active' : ''; ?>">
-                                        <img src="Public/StockItemIMG/<?php print $Images[$i]['ImagePath'] ?>">
+                                        <img class="d-block carouselImage"
+                                             src="Public/StockItemIMG/<?= $Images[$i]['ImagePath'] ?>"
+                                             alt="First slide">
                                     </div>
-                                <?php } ?>
+                                    <?php
+                                }
+                                ?>
                             </div>
-
-                            <!-- Left and right controls -->
-                            <a class="carousel-control-prev" href="#ImageCarousel" data-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                               data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#ImageCarousel" data-slide="next">
-                                <span class="carousel-control-next-icon"></span>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                               data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
                             </a>
                         </div>
-                    </div>
+                        <?php
+                    }
+                } else {
+                    ?>
+                    <img class="w-100" src="Public/StockGroupIMG/<?= $Result['BackupImagePath']; ?>"/>
                     <?php
                 }
-            } else {
                 ?>
-                <div id="ImageFrame"
-                     style="background-image: url('Public/StockGroupIMG/<?php print $Result['BackupImagePath']; ?>'); background-size: cover;"></div>
-                <?php
-            }
-            ?>
-
-
-            <h1 class="StockItemID">Artikelnummer: <?php print $Result["StockItemID"]; ?></h1>
-            <div>
-                <h2 class="StockItemNameViewSize StockItemName"><?php print $Result['StockItemName']; ?></h2>
-                <form method="post" action="addCart.php">
-                    <input type="number" name="quantity" value="1" style="width: 75px" min="1" required>
-                    <input type="hidden" name="StockItemID" value="<?=$Result['StockItemID'] ?>">
-                    <button name="submitted" class="btn btn-primary">Toevoegen aan winkelwagen</button>
-                </form>
             </div>
-            <div class="QuantityText"><?php if (($Result['QuantityOnHand'] >0 && $Result['QuantityOnHand'] <100)){
-                                                print ("Beperkte voorraad beschikbaar");}
-                                            if (($Result['QuantityOnHand'] <=0 )){
-                                                print("Tijdelijk uitverkocht");}
-                                            if (($Result['QuantityOnHand'] >=100)){
-                                                print ("Ruime voorraad beschikbaar");}
-                                            ?></div>
-            <div id="StockItemHeaderLeft">
-                <div class="CenterPriceLeft">
-                    <div class="CenterPriceLeftChild">
-                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Result['SellPrice']); ?></b></p>
+            <div class="col-lg-8">
+                <div class="row" >
+                    <div class="col-md-9">
+                        <h2 class="StockItemNameViewSize StockItemName"><?php print $Result['StockItemName']; ?></h2>
+                    </div>
+                    <div class="col-md-3" style="text-align: right">
+                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Result['SellPrice']); ?></b>
+                        </p>
                         <h6> Inclusief BTW </h6>
+                    </div>
+                </div>
+<!--                    TODO: fix layout itemstock and addtocart form-->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="badge badge-success" style="background-color: #676EFF;">
+                            <?php if (($Result['QuantityOnHand'] > 0 && $Result['QuantityOnHand'] < 100)) {
+                                print ("Beperkte voorraad beschikbaar");
+                            }
+                            if (($Result['QuantityOnHand'] <= 0)) {
+                                print("Tijdelijk uitverkocht");
+                            }
+                            if (($Result['QuantityOnHand'] >= 100)) {
+                                print ("Ruime voorraad beschikbaar");
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <form method="post" action="addCart.php">
+                            <input type="hidden" name="StockItemID" value="<?= $Result['StockItemID'] ?>">
+                            <div class="form-row align-items-center">
+                                <div class="col-4">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Aantal:</div>
+                                        </div>
+                                        <input type="number" class="form-control" id="inlineFormInputGroup" value="1"
+                                               name="quantity" min="1" max="<?= $Result['QuantityOnHand'] ?>">
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-success mb-2" name="submitted">Toevoegen aan
+                                        winkelwagen
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div id="StockItemDescription">
-            <h3>Artikel beschrijving</h3>
-            <p><?php print $Result['SearchDetails']; ?></p>
-        </div>
-        <div id="StockItemSpecifications">
-            <h3>Artikel specificaties</h3>
-            <?php
-            $CustomFields = json_decode($Result['CustomFields'], true);
-            if (is_array($CustomFields)) { ?>
-                <table>
-                <thead>
-                <th>Naam</th>
-                <th>Data</th>
-                </thead>
+        <div class="row mt-2">
+            <div class="col-md-6 StockItemDescriptionBox">
+                <h3>Artikel beschrijving</h3>
+                <p><?php print $Result['SearchDetails']; ?></p>
+            </div>
+            <div class="col-md-6 StockItemDescriptionBox">
+                <h3>Artikel specificaties</h3>
                 <?php
-                foreach ($CustomFields as $SpecName => $SpecText) { ?>
-                    <tr>
-                        <td>
-                            <?php print $SpecName; ?>
-                        </td>
-                        <td>
-                            <?php
-                            if (is_array($SpecText)) {
-                                foreach ($SpecText as $SubText) {
-                                    print $SubText . " ";
+                $CustomFields = json_decode($Result['CustomFields'], true);
+                if (is_array($CustomFields)) { ?>
+                    <table>
+                    <thead>
+                    <th>Naam</th>
+                    <th>Data</th>
+                    </thead>
+                    <?php
+                    foreach ($CustomFields as $SpecName => $SpecText) { ?>
+                        <tr>
+                            <td>
+                                <?php print $SpecName; ?>
+                            </td>
+                            <td>
+                                <?php
+                                if (is_array($SpecText)) {
+                                    foreach ($SpecText as $SubText) {
+                                        print $SubText . " ";
+                                    }
+                                } else {
+                                    print $SpecText;
                                 }
-                            } else {
-                                print $SpecText;
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                <?php } ?>
-                </table><?php
-            } else { ?>
+                                ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </table><?php
+                } else { ?>
 
-                <p><?php print $Result['CustomFields']; ?>.</p>
-                <?php
-            }
-            ?>
+                    <p><?php print $Result['CustomFields']; ?>.</p>
+                    <?php
+                }
+                ?>
+            </div>
         </div>
         <?php
+        if (isset($Result['Video'])) {
+
+            ?>
+            <div class="row mt-2 embed-responsive">
+                <?= $Result['Video'] ?>
+            </div>
+        <?php }
     } else {
-        ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
-    } ?>
-</div>
+        ?>
+        <h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2>
+        <?php
+    }
+    ?>
+<script>
+    $("#videoTrigger").click(e => {
+        $("#videoDiv").slideToggle();
+    })
+</script>
