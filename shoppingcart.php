@@ -179,7 +179,6 @@ include __DIR__ . "/header.php";
     }
 
     .mid-wrapper {
-        width: calc(100% - 500px);
         left: 0;
         right: 0;
         margin: auto;
