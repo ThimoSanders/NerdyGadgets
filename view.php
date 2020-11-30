@@ -209,7 +209,7 @@ if ($R) {
         if (isset($Result['Video'])) {
 
             ?>
-            <div class="row mt-2 embed-responsive">
+            <div class="row mt-2 embed-responsive" style="min-height: 500px">
                 <?= $Result['Video'] ?>
             </div>
         <?php }
