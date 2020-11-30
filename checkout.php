@@ -24,17 +24,16 @@ $BTW = round($totalPrice - $subTotaal, 2);
                         <input type="text" name="email" required value="<?php isset($_SESSION["login"]["LogonName"]) ? print($_SESSION["login"]["LogonName"]) : "" ?>"/>
                         <label>Land</label>
                         <input type="text" name="land" required value="<?php isset($_SESSION["login"]["Country"]) ? print($_SESSION["login"]["Country"]) : "" ?>"/>
-                        <label>Straat</label>
+                        <label>Adres</label>
                         <input type="text" name="straat" required value="<?php isset($_SESSION["login"]["Address"]) ? print($_SESSION["login"]["Address"]) : "" ?>"/>
                         <!--Aan het eind van de gegevens komen er 2 velden naast elkaar-->
                         <div class="row">
                             <div class="col-50">
-                                <label>Huisnummer</label>
-                                <input type="text" name="huisnummer" required>
-                            </div>
-                            <div class="col-50">
                                 <label>Postcode</label>
                                 <input type="text" name="postcode" required value="<?php isset($_SESSION["login"]["PostalCode"]) ? print($_SESSION["login"]["PostalCode"]) : "" ?>"/>
+                            </div>
+                            <div class="col-50">
+                                <label></label>
                             </div>
                         </div>
                     </div>
