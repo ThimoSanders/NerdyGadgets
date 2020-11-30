@@ -152,7 +152,7 @@ if ($R) {
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <button type="submit" class="btn btn-success mb-2" name="submitted">Toevoegen aan
+                                    <button type="submit" class="btn btn-success mb-2 buttonBold" name="submitted">Toevoegen aan
                                         winkelwagen
                                     </button>
                                 </div>

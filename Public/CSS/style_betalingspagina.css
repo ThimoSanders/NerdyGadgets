@@ -55,10 +55,11 @@ label {
     border-radius: 3px;
     cursor: pointer;
     font-size: 17px;
+    font-weight: bold;
 }
 
 .kleur:hover {
-    background-color: #45a049;
+    background-color: #28a745;
 }
 
 .icon-container {

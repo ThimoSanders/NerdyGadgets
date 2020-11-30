@@ -89,7 +89,7 @@ include __DIR__ . "/header.php";
         <!--        <span class="i" id="shipping">Verzendkosten: &euro;3,50</span>-->
         <span class="i" id="total">Totaal: &euro;<?=$totalPrice?></span>
         <a href="checkout.php">
-            <button class="i" id="Pay">Afrekenen</button>
+            <button class="buttonBold btn btn-success" id="Pay">Verder naar Bestellen</button>
         </a>
     </div>
 
