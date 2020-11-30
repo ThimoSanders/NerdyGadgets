@@ -94,6 +94,7 @@ ul#ul-class-navigation li {
     background-color: rgba(35, 40, 47, 0.8);
     float: left;
     top:216px;
+    left: 0;
     border: 1px solid #fff;
     margin-left: 5px;
     margin-top: 10px;

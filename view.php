@@ -124,7 +124,7 @@ if ($R) {
                 </div>
 <!--                    TODO: fix layout itemstock and addtocart form-->
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="badge badge-success" style="background-color: #676EFF;">
                             <?php if (($Result['QuantityOnHand'] > 0 && $Result['QuantityOnHand'] < 100)) {
                                 print ("Beperkte voorraad beschikbaar");
@@ -138,11 +138,11 @@ if ($R) {
                             ?>
                         </div>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8 col-sm-12 d-flex justify-content-center">
                         <form method="post" action="addCart.php">
                             <input type="hidden" name="StockItemID" value="<?= $Result['StockItemID'] ?>">
                             <div class="form-row align-items-center">
-                                <div class="col-4">
+                                <div class="col-md-4 col-sm-4">
                                     <div class="input-group mb-2">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">Aantal:</div>
@@ -162,12 +162,12 @@ if ($R) {
                 </div>
             </div>
         </div>
-        <div class="row mt-2">
-            <div class="col-md-6 StockItemDescriptionBox">
+        <div class="row mt-4 StockItemDescriptionBox">
+            <div class="col-md-6">
                 <h3>Artikel beschrijving</h3>
                 <p><?php print $Result['SearchDetails']; ?></p>
             </div>
-            <div class="col-md-6 StockItemDescriptionBox">
+            <div class="col-md-6">
                 <h3>Artikel specificaties</h3>
                 <?php
                 $CustomFields = json_decode($Result['CustomFields'], true);
