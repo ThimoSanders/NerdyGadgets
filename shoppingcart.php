@@ -13,8 +13,12 @@ include __DIR__ . "/header.php";
     <?php
     $totalPrice = 0;
     if (!isset($_SESSION['shoppingcart'])) {
-        print "<h1>Er zit niks in je winkelwagen</h1>";
+        ?>
+        <h1>Er zit niks in je winkelwagen</h1>
+    </div>
+    <?php
     } else {
+        print("</div>");
         //foreach loop for every item in the shopping cart
         foreach ($_SESSION['shoppingcart'] as $productID => $value) {
             //prints the key, in this case the "StockItemID"
@@ -40,7 +44,6 @@ include __DIR__ . "/header.php";
             $N = mysqli_fetch_all($N, MYSQLI_ASSOC);
             $totalPrice += $N[0]['RecommendedRetailPrice'] * $value;
             ?>
-            </div>
             <div
                     class="CartItem"
                     id="item"
