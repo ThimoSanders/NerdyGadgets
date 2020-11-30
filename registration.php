@@ -140,7 +140,7 @@ if (isset($_POST['reg_user'])) {
         echo "<br> U bent geregistreerd. ";
 
         $_SESSION['username'] = $FullName;
-        $_SESSION["login"] = ["FullName"=> $FullName, "LogonName"=>$EmailAddress];
+        $_SESSION["login"] = ["FullName"=> $FullName, "LogonName"=>$EmailAddress, "Country" => $Country, "Address" => $Address, "PostalCode" => $Postalcode];
 
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 include __DIR__ . "/header.php";
-
 ?>
     <!--Na het indrukken van de bestelling afronden knop wordt de gebruiker doorverwezen naar de paid pagina-->
 <?php
@@ -20,13 +19,13 @@ $BTW = round($totalPrice - $subTotaal, 2);
                     <div class="col-50">
                         <h3>Gegevens</h3>
                         <label>Volledige naam</label>
-                        <input type="text" name="vnaam" required/>
+                        <input type="text" name="vnaam" required value="<?php isset($_SESSION["login"]["FullName"]) ? print($_SESSION["login"]["FullName"]) : "" ?>"/>
                         <label>E-mail</label>
-                        <input type="text" name="email" required>
+                        <input type="text" name="email" required value="<?php isset($_SESSION["login"]["LogonName"]) ? print($_SESSION["login"]["LogonName"]) : "" ?>"/>
                         <label>Land</label>
-                        <input type="text" name="land" required>
+                        <input type="text" name="land" required value="<?php isset($_SESSION["login"]["Country"]) ? print($_SESSION["login"]["Country"]) : "" ?>"/>
                         <label>Straat</label>
-                        <input type="text" name="straat" required>
+                        <input type="text" name="straat" required value="<?php isset($_SESSION["login"]["Address"]) ? print($_SESSION["login"]["Address"]) : "" ?>"/>
                         <!--Aan het eind van de gegevens komen er 2 velden naast elkaar-->
                         <div class="row">
                             <div class="col-50">
@@ -35,7 +34,7 @@ $BTW = round($totalPrice - $subTotaal, 2);
                             </div>
                             <div class="col-50">
                                 <label>Postcode</label>
-                                <input type="text" name="postcode" required>
+                                <input type="text" name="postcode" required value="<?php isset($_SESSION["login"]["PostalCode"]) ? print($_SESSION["login"]["PostalCode"]) : "" ?>"/>
                             </div>
                         </div>
                     </div>
