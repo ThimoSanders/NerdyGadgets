@@ -16,12 +16,12 @@ include __DIR__ . "/header.php";
 
             <div class="textbox">
                 <b><label for=""> Email: </label>
-                <input type="text" name="naam" id="naam" placeholder="email" required/><br>
+                <input type="text" name="naam" id="naam" placeholder="Email" required/><br>
             </div>
 
             <div class="textbox">
                 <label for=""> Wachtwoord: </label>
-                <input type="password" name="wachtwoord" id ="wachtwoord" placeholder="wachtwoord"/><br>
+                <input type="password" name="wachtwoord" id ="wachtwoord" placeholder="Wachtwoord"/><br>
             </div>
 
 

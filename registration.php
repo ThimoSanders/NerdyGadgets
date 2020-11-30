@@ -22,10 +22,11 @@ include __DIR__ . "/header.php"; ?>
                     <label>Wachtwoord:</label>
                 <div class="textbox">
                     <input type="password" name="password_1" placeholder="Wachtwoord">
+                    <p style="font-size: small; color: black">Minimaal: 8 tekens, 1 hoofdletter, 2 cijfers, 1 leesteken.</p>
                 </div>
                     <label>Bevestig wachtwoord:</label>
                 <div class="textbox">
-                    <input type="password" name="password_2" placeholder="wachtwoord">
+                    <input type="password" name="password_2" placeholder="Wachtwoord">
                 </div>
                 <label>Land:</label>
                 <div class="textbox">
