@@ -25,7 +25,16 @@ try {
         $_SESSION['shoppingcart'][$ItemID] = $Quantity;
         $_SESSION['totalPrice'] = $Price * $Quantity + $TotalPrice;
     }
-    echo json_encode(["message" => "success"]);
+
+    $totalAmount = 0;
+    if (isset($_SESSION['shoppingcart'])) {
+        foreach ($_SESSION['shoppingcart'] as $value) {
+            $totalAmount += $value;
+        }
+    }
+    $_SESSION['shoppingcart_amount'] = $totalAmount;
+
+    echo json_encode(["message" => "success", "totalAmount" => $totalAmount]);
 } catch (Exception $e) {
     echo json_encode(["error" => $e->getMessage()]);
 }

@@ -69,18 +69,23 @@ if(isset($_POST["knop"])) {
 
         if (password_verify($wachtwoord, $password)) {
             $_SESSION["login"] = ["FullName"=> $people[0]["FullName"], "LogonName"=>$account];
-            print("<div class='LoginMelding'> Je bent ingelogd!</div>");
+?>
+            <div class='LoginMelding'> U bent ingelogd!</div>
+            <script>
+                window.location.href = "http://localhost/NerdyGadgets/";
+            </script>
+        <?php
         }
         else {
-            print("<div class='LoginMelding'> Het wachtwoord is verkeerd.</div>");
+?>
+            <div class='LoginMelding'> De gegevens kloppen niet.</div>
+        <?php
         }
 
     }
     elseif (count($people) == 0) { #Wanneer er niks terug komt van de database gebeurd er dit.
-        #print("Er bestaat geen account met de ingevulde gegevens.");
-        print("<div class='LoginMelding'> Er bestaat geen account met de ingevulde gegevens.</div>");
+        print("<div class='LoginMelding'> De gegevens kloppen niet.</div>");
     }
-
 }
 
 

@@ -90,7 +90,7 @@ if ($CategoryID == "") {
 
     $Query = "
                 SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
-                (CASE WHEN (SIH.QuantityOnHand) >= ? THEN 'Ruime voorraad beschikbaar.' ELSE CONCAT('Voorraad: ',QuantityOnHand) END) AS QuantityOnHand, 
+                QuantityOnHand, 
                 (SELECT ImagePath
                 FROM stockitemimages 
                 WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
@@ -104,7 +104,7 @@ if ($CategoryID == "") {
 
 
     $Statement = mysqli_prepare($Connection, $Query);
-    mysqli_stmt_bind_param($Statement, "iii", $ShowStockLevel, $ProductsOnPage, $Offset);
+    mysqli_stmt_bind_param($Statement, "ii", $ProductsOnPage, $Offset);
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
@@ -126,7 +126,7 @@ if ($CategoryID == "") {
     $Query = "
                 SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, 
                 ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice, 
-                (CASE WHEN (SIH.QuantityOnHand) >= ? THEN 'Ruime voorraad beschikbaar.' ELSE CONCAT('Voorraad: ',QuantityOnHand) END) AS QuantityOnHand,
+                QuantityOnHand,
                 (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
                 (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath           
                 FROM stockitems SI 
@@ -139,7 +139,7 @@ if ($CategoryID == "") {
                 LIMIT ? OFFSET ?";
 
     $Statement = mysqli_prepare($Connection, $Query);
-    mysqli_stmt_bind_param($Statement, "iiii", $ShowStockLevel, $CategoryID, $ProductsOnPage, $Offset);
+    mysqli_stmt_bind_param($Statement, "iii",  $CategoryID, $ProductsOnPage, $Offset);
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
@@ -232,7 +232,12 @@ if (isset($amount)) {
                     <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
-                    <h4 class="ItemQuantity"><?php print $row["QuantityOnHand"]; ?></h4>
+                    <h4 class="ItemQuantity"><?php if (($row['QuantityOnHand'] >0 && $row['QuantityOnHand'] <100)){
+                            print ("Beperkte voorraad beschikbaar");}
+                        if (($row['QuantityOnHand'] <=0 )){
+                            print("Tijdelijk uitverkocht");}
+                        if (($row['QuantityOnHand'] >=100)){
+                            print ("Ruime voorraad beschikbaar");} ?></h4>
                 </div>
             </a>
         <?php } ?>

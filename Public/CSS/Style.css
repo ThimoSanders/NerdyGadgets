@@ -6,6 +6,8 @@ body {
     overflow-x:hidden;
     color: #FFF !important;
     background-color: rgb(35, 35, 47) !important;
+    font-family: Arial;
+    font-size: 17px;
 }
 @font-face {
     font-family: MmrText;
@@ -84,7 +86,7 @@ ul#ul-class-navigation li {
     border-bottom: 1px solid rgb(36, 41, 143);
 }
 #Content {
-    margin-top: 200px;
+    margin-top: 50px;
 }
 #FilterFrame {
     position: fixed;
@@ -92,6 +94,7 @@ ul#ul-class-navigation li {
     background-color: rgba(35, 40, 47, 0.8);
     float: left;
     top:216px;
+    left: 0;
     border: 1px solid #fff;
     margin-left: 5px;
     margin-top: 10px;
@@ -182,6 +185,10 @@ ul#ul-class-navigation li {
     height: 300px;
 }
 
+.carouselImage {
+    width: 100%;
+    height: 100%;
+}
 .StockItemNameViewSize {
     font-size: 35px !important;
 }
@@ -206,6 +213,12 @@ ul#ul-class-navigation li {
     border: 1px solid;
     font-family: pt-sans, sans-serif;
     font-size: 20px;
+}
+
+.StockItemDescriptionBox {
+    background-color: rgba(35, 40, 47, 0.8);
+    border: 1px solid;
+    border-radius: .25rem;
 }
 #StockItemSpecifications {
     background-color: rgba(35, 40, 47, 0.8);
@@ -239,7 +252,6 @@ ul#ul-class-navigation li {
     background-image: url("../ProductIMGHighRes/NerdyGadgetsLogo.png");
     width: 250px;
     height: 90px;
-    margin: 55px 55px 55px 10%;
 }
 ul#ul-class li {
     display: inline;
@@ -398,7 +410,7 @@ ul#ul-class-price li {
 .StockItemName {
     font-family: pt-sans, sans-serif;
     color: #fff;
-    font-size: 20px;
+    font-size: 1.5rem;
     text-transform: uppercase;
     font-weight: bold;
 }
@@ -489,7 +501,12 @@ ul#ul-class-price li {
     top: 50%;
     left: 50%;
 }
+
 .buttonBold {
     font-weight: bold !important;
 }
 
+.shopping_cart_icon {
+    margin-top: 7px;
+    margin-bottom: 7px;
+}

@@ -10,8 +10,6 @@ include __DIR__ . "/header.php"; ?>
     <div class="login-box">
         <h1>Registreren</h1>
         <form method="post" action="registration.php">
-            <?php
-            include('errors.php'); ?>
             <div class="textbox">
             <label><b>Naam:</label>
                 <div class="textbox">
@@ -29,11 +27,23 @@ include __DIR__ . "/header.php"; ?>
                 <div class="textbox">
                     <input type="password" name="password_2" placeholder="wachtwoord">
                 </div>
+                <label>Land:</label>
+                <div class="textbox">
+                    <input type="Land" name="country" placeholder="Land">
+                </div>
+                <label>Adres:</label>
+                <div class="textbox">
+                    <input type="Address" name="address" placeholder="Adres">
+                </div>
+                <label>Postcode:</label>
+                <div class="textbox">
+                    <input type="Postalcode" name="postalcode" placeholder="Postcode">
+                </div>
 
                 <input type="submit" name="reg_user" value="Registreren" />
         </form>
         </div>
-    <h4>Al een Lid? <a href="login.php">Inloggen</a>
+    <h4>Al een Lid? <a href="login.php">Inloggen</a><br>
 
     </body>
     </html>
@@ -41,7 +51,7 @@ include __DIR__ . "/header.php"; ?>
 <?php
 $FullName = "";
 $EmailAddress = "";
-$errors = array();
+$errors = FALSE;
 
 $host = "localhost";
 $databasename = "nerdygadgets";
@@ -59,22 +69,50 @@ if (isset($_POST['reg_user'])) {
     $EmailAddress = mysqli_real_escape_string($connectie, $_POST['email']);
     $password_1 = mysqli_real_escape_string($connectie, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($connectie, $_POST['password_2']);
+    $Country = mysqli_real_escape_string($connectie, $_POST['country']);
+    $Address = mysqli_real_escape_string($connectie, $_POST['address']);
+    $Postalcode = mysqli_real_escape_string($connectie, $_POST['postalcode']);
 
     if (empty($FullName)) {
-        array_push($errors, "Username is required");
-        echo "<br> Naam is niet ingevuld ";
+        $errors = TRUE;
+        echo "<br> Naam is niet ingevuld. ";
     }
     if (empty($EmailAddress)) {
-        array_push($errors, "Email is required");
-        echo "<br> Email is niet ingevuld ";
+        $errors = TRUE;
+        echo "<br> Email is niet ingevuld. ";
     }
     if (empty($password_1)) {
-        array_push($errors, "Password is required");
-        echo "<br> Wachtwoord is niet ingevuld";
+        $errors = TRUE;
+        echo "<br> Wachtwoord is niet ingevuld. ";
     }
+    $hoofdletter = preg_match('@[A-Z]@', $password_1);
+    $kleineletter = preg_match('@[a-z]@', $password_1);
+    $nummer = preg_match('@[0-9]{2,}@', $password_1);
+    $karater = preg_match('@[^\w]@', $password_1);
+
+    if(!$hoofdletter || !$kleineletter || !$nummer || !$karater || strlen($password_1) < 8) {
+        $errors = TRUE;
+        print("Het wachtwoord voldoet niet aan de eisen!");
+    }
+    else {
+        print("Het werkt");
+    }
+
     if ($password_1 != $password_2) {
-        array_push($errors, "The two passwords do not match");
-        echo "<br> De twee wachtwoorden komen niet overheen ";
+        $errors = TRUE;
+        echo "<br> De twee wachtwoorden komen niet overheen. ";
+    }
+    if (empty($Country)) {
+        $errors = TRUE;
+        echo "<br> Land is niet ingevuld. ";
+    }
+    if (empty($Address)) {
+        $errors = TRUE;
+        echo "<br> Adres is niet ingevuld. ";
+    }
+    if (empty($Postalcode)) {
+        $errors = TRUE;
+        echo "<br> Postcode is niet ingevuld. ";
     }
 
 // a user does not already exist with the same username and/or email
@@ -85,27 +123,25 @@ if (isset($_POST['reg_user'])) {
 // if Email already exists
     if ($user) {
         if ($user['LogonName'] === $EmailAddress) {
-            array_push($errors, "email already exists");
-            echo "<br> Email is al in gebruik";
+            $errors = TRUE;
+            echo "<br> Email is al in gebruik. ";
         }
     }
 // register user if there are no errors
-    if (count($errors) == 0) {
+    if ($errors == FALSE) {
         $password = password_hash($password_1, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO people (FullName, LogonName, IsPermittedToLogon, HashedPassword, LastEditedBy) 
-            VALUES('$FullName', '$EmailAddress', 'TRUE', '$password', 1)";
+        $query = "INSERT INTO people (FullName, LogonName, HashedPassword, Country, Address, Postalcode, IsPermittedToLogon, LastEditedBy) 
+            VALUES( ?, ?, ?, ?, ?, ?, 'TRUE', 1)";
         $statement = mysqli_prepare($connectie, $query);
+        mysqli_stmt_bind_param($statement, "ssssss", $FullName, $EmailAddress, $password, $Country, $Address, $Postalcode);
         mysqli_stmt_execute($statement);
 
-        echo "<br> U bent geregistreerd";
-
-        //       mysqli_query($connectie, $query);
+        echo "<br> U bent geregistreerd. ";
 
         $_SESSION['username'] = $FullName;
-        $_SESSION['success'] = "You are now logged in";
+        $_SESSION["login"] = ["FullName"=> $FullName, "LogonName"=>$EmailAddress];
 
-        // header('location: index.php');
     }
 }
 ?>
