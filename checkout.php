@@ -18,19 +18,19 @@ $BTW = round($totalPrice - $subTotaal, 2);
                 <div class="row">
                     <div class="col-50">
                         <h3>Gegevens</h3>
-                        <label>Volledige naam</label>
-                        <input type="text" name="vnaam" required value="<?php isset($_SESSION["login"]["FullName"]) ? print($_SESSION["login"]["FullName"]) : "" ?>"/>
-                        <label>E-mail</label>
-                        <input type="text" name="email" required value="<?php isset($_SESSION["login"]["LogonName"]) ? print($_SESSION["login"]["LogonName"]) : "" ?>"/>
-                        <label>Land</label>
-                        <input type="text" name="land" required value="<?php isset($_SESSION["login"]["Country"]) ? print($_SESSION["login"]["Country"]) : "" ?>"/>
-                        <label>Adres</label>
-                        <input type="text" name="straat" required value="<?php isset($_SESSION["login"]["Address"]) ? print($_SESSION["login"]["Address"]) : "" ?>"/>
+                        <label>Volledige naam:</label>
+                        <input placeholder="Volledige naam" type="text" name="vnaam" required value="<?php isset($_SESSION["login"]["FullName"]) ? print($_SESSION["login"]["FullName"]) : null ?>"/>
+                        <label>E-mail:</label>
+                        <input placeholder="E-mail" type="text" name="email" required value="<?php isset($_SESSION["login"]["LogonName"]) ? print($_SESSION["login"]["LogonName"]) : null ?>"/>
+                        <label>Land:</label>
+                        <input placeholder="Land" type="text" name="land" required value="<?php isset($_SESSION["login"]["Country"]) ? print($_SESSION["login"]["Country"]) : null ?>"/>
+                        <label>Adres:</label>
+                        <input placeholder="Adres" type="text" name="straat" required value="<?php isset($_SESSION["login"]["Address"]) ? print($_SESSION["login"]["Address"]) : null ?>"/>
                         <!--Aan het eind van de gegevens komen er 2 velden naast elkaar-->
                         <div class="row">
                             <div class="col-50">
-                                <label>Postcode</label>
-                                <input type="text" name="postcode" required value="<?php isset($_SESSION["login"]["PostalCode"]) ? print($_SESSION["login"]["PostalCode"]) : "" ?>"/>
+                                <label>Postcode:</label>
+                                <input placeholder="Postcode" type="text" name="postcode" required value="<?php isset($_SESSION["login"]["PostalCode"]) ? print($_SESSION["login"]["PostalCode"]) : null ?>"/>
                             </div>
                             <div class="col-50">
                                 <label></label>

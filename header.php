@@ -81,7 +81,7 @@ $HeaderStockGroups = mysqli_stmt_get_result($Statement);
                             <?php
                         }
                         ?>
-                        <a href="categories.php" class="dropdown-item">Alle categorieën</a>
+                        <a href="categories.php" class="dropdown-item">Alle Categorieën</a>
                     </div>
                 </li>
                 <li class="nav-item">

@@ -3,10 +3,10 @@ include __DIR__ . "/header.php";
 ?>
 
     <div class="z">
-        <label>Bedankt voor uw bestelling</label>
+        <label>Bedankt voor uw bestelling!</label>
     </div>
     <div class="z2"
-         <label>Uw bestelling is geplaatst en wordt momenteel verwerkt. U zal een email ontvangen met de details van de bestelling</label>
+         <label>Uw bestelling is geplaatst en wordt momenteel verwerkt. U zal een email ontvangen met de details van de bestelling.</label>
     </div>
 
 <?php

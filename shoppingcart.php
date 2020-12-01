@@ -7,14 +7,14 @@ include __DIR__ . "/header.php";
 
 <section class="mid-wrapper">
     <h1>
-        winkelwagen
+        Winkelwagen
     </h1>
     <div class="emptyShoppingcart">
     <?php
     $totalPrice = 0;
     if (!isset($_SESSION['shoppingcart'])) {
         ?>
-        <h1>Er zit niks in je winkelwagen</h1>
+        <h1>Er zit niks in je winkelwagen.</h1>
     </div>
     <?php
     } else {
@@ -57,7 +57,7 @@ include __DIR__ . "/header.php";
                      style="background-image: url('Public/StockItemIMG/<?php print $R[0]['ImagePath']; ?>'); background-size: 60px; background-repeat: no-repeat; background-position: center;">
                 </div>
                 <div class="c-content">
-                    <span class="i" id="title">artikelnummer: <?= $productID ?></span>
+                    <span class="i" id="title">Artikelnummer: <?= $productID ?></span>
                     <span class="i" id="subtitle"><?= $N[0]['StockItemName'] ?></span>
                 </div>
                 <div class="amount" data-itemid="<?=$productID?>">
@@ -92,7 +92,7 @@ include __DIR__ . "/header.php";
         <!--        <span class="i" id="shipping">Verzendkosten: &euro;3,50</span>-->
         <span class="i" id="total">Totaal: &euro;<?=$totalPrice?></span>
         <a href="checkout.php">
-            <button class="buttonBold btn btn-success" id="Pay">Verder naar Bestellen</button>
+            <button class="buttonBold btn btn-success" id="Pay">Verder naar bestellen</button>
         </a>
     </div>
 
@@ -145,7 +145,7 @@ include __DIR__ . "/header.php";
                     $("#shoppingcartAmount").text(res.totalAmount);
                     $("#total").text('Totaal: €'+calculateTotalPrice().toFixed(2));
                     if (res.totalAmount == 0) {
-                        $(".emptyShoppingcart").html("<h1>Er zit niks in je winkelwagen</h1>")
+                        $(".emptyShoppingcart").html("<h1>Er zit niks in je winkelwagen.</h1>")
                     }
                 }
             });

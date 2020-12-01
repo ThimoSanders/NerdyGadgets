@@ -44,7 +44,7 @@ include __DIR__ . "/header.php"; ?>
                 <input type="submit" name="reg_user" value="Registreren" />
         </form>
         </div>
-    <h4>Al een Lid? <a href="login.php">Inloggen</a><br>
+    <h4>Heb je al een account? <a href="login.php">Inloggen</a><br>
 
     </body>
     </html>
@@ -80,7 +80,7 @@ if (isset($_POST['reg_user'])) {
     }
     if (empty($EmailAddress)) {
         $errors = TRUE;
-        echo "<br> Email is niet ingevuld. ";
+        echo "<br> Email is niet ingevuld.";
     }
     if (empty($password_1)) {
         $errors = TRUE;
@@ -93,7 +93,7 @@ if (isset($_POST['reg_user'])) {
 
     if(!$hoofdletter || !$kleineletter || !$nummer || !$karater || strlen($password_1) < 8) {
         $errors = TRUE;
-        print("Het wachtwoord voldoet niet aan de eisen!");
+        print("<br>Het wachtwoord voldoet niet aan de eisen!");
     }
     else {
         print("Het werkt");
