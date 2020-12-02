@@ -149,7 +149,7 @@ ul#ul-class-navigation li {
 .ItemQuantity {
     position: absolute;
     left: 250px;
-    bottom: 2.5px;
+    bottom: 8px;
     color: white;
     font-size: 15px;
 }

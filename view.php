@@ -125,18 +125,17 @@ if ($R) {
 <!--                    TODO: fix layout itemstock and addtocart form-->
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="badge badge-success" style="background-color: #676EFF;">
-                            <?php if (($Result['QuantityOnHand'] > 0 && $Result['QuantityOnHand'] < 100)) {
-                                print ("Beperkte voorraad beschikbaar");
-                            }
-                            if (($Result['QuantityOnHand'] <= 0)) {
-                                print("Tijdelijk uitverkocht");
-                            }
-                            if (($Result['QuantityOnHand'] >= 100)) {
-                                print ("Ruime voorraad beschikbaar");
-                            }
-                            ?>
-                        </div>
+                        <?php if (($Result['QuantityOnHand'] >0 && $Result['QuantityOnHand'] < 100)){
+                            $quantityText = "Beperkte voorraad beschikbaar";
+                            $quantityStyle = "background-color: #ffc107;";
+                        } if (($Result['QuantityOnHand'] <=0 )){
+                            $quantityText = "Tijdelijk uitverkocht";
+                            $quantityStyle = "background-color: #dc3545;";
+                        } if (($Result['QuantityOnHand'] >=100)){
+                            $quantityText = "Ruime voorraad beschikbaar";
+                            $quantityStyle = "background-color: #676EFF;";
+                        } ?>
+                        <div class="badge" style="<?=$quantityStyle?>>"><?= $quantityText?></div>
                     </div>
                     <div class="col-md-8 col-sm-12 d-flex justify-content-center">
                         <form method="post" action="addCart.php">

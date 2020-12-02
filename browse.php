@@ -232,12 +232,17 @@ if (isset($amount)) {
                     <h1 class="StockItemID">Artikelnummer: <?php print $row["StockItemID"]; ?></h1>
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
-                    <h4 class="ItemQuantity"><?php if (($row['QuantityOnHand'] >0 && $row['QuantityOnHand'] <100)){
-                            print ("Beperkte voorraad beschikbaar");}
-                        if (($row['QuantityOnHand'] <=0 )){
-                            print("Tijdelijk uitverkocht");}
-                        if (($row['QuantityOnHand'] >=100)){
-                            print ("Ruime voorraad beschikbaar");} ?></h4>
+                    <?php if (($row['QuantityOnHand'] >0 && $row['QuantityOnHand'] < 100)){
+                        $quantityText = "Beperkte voorraad beschikbaar";
+                        $quantityStyle = "background-color: #ffc107;";
+                    } if (($row['QuantityOnHand'] <=0 )){
+                        $quantityText = "Tijdelijk uitverkocht";
+                        $quantityStyle = "background-color: #dc3545;";
+                    } if (($row['QuantityOnHand'] >=100)){
+                        $quantityText = "Ruime voorraad beschikbaar";
+                        $quantityStyle = "background-color: #676EFF;";
+                    } ?>
+                    <div class="badge ItemQuantity" style="<?=$quantityStyle?>>"><?= $quantityText?></div>
                 </div>
             </a>
         <?php } ?>
