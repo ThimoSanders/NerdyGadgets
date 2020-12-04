@@ -138,11 +138,13 @@ if (isset($_POST['reg_user'])) {
         mysqli_stmt_bind_param($statement, "ssssss", $FullName, $EmailAddress, $password, $Country, $Address, $Postalcode);
         mysqli_stmt_execute($statement);
 
-        echo "<br> U bent geregistreerd. ";
-
+        ?>
+        <script>
+            window.location.href = "http://localhost/NerdyGadgets/?message=register_success";
+        </script>
+        <?php
         $_SESSION['username'] = $FullName;
         $_SESSION["login"] = ["FullName"=> $FullName, "LogonName"=>$EmailAddress, "Country" => $Country, "Address" => $Address, "PostalCode" => $Postalcode];
-
     }
 }
 ?>

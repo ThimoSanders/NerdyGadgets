@@ -72,7 +72,7 @@ if(isset($_POST["knop"])) {
 ?>
             <div class='LoginMelding'> U bent ingelogd!</div>
                     <script>
-                        window.location.href = "http://localhost/NerdyGadgets/";
+                        window.location.href = "http://localhost/NerdyGadgets/?message=login_success";
         </script>
 
         <?php
