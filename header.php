@@ -89,17 +89,8 @@ $HeaderStockGroups = mysqli_stmt_get_result($Statement);
                         Zoeken</a>
                 </li>
             </ul>
+
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="shoppingcart.php">
-                        <i class="fas fa-shopping-cart shopping_cart_icon" style="color:#676EFF;"></i>
-                        <div class="badge badge-danger" id="shoppingcartAmount">
-                            <?php
-                            isset($_SESSION['shoppingcart_amount']) ? print $_SESSION['shoppingcart_amount'] : print 0;
-                            ?>
-                        </div>
-                    </a>
-                </li>
                 <?php
                 if (isset($_SESSION['login'])) {
                     ?>
@@ -116,11 +107,22 @@ $HeaderStockGroups = mysqli_stmt_get_result($Statement);
                 } else {
                     ?>
                     <li class="nav-item">
-                        <a href="login.php" class="nav-link"><i style="color:#676EFF;"></i> Inloggen <i class="fas fa-user-circle"></i></a>
+                        <a href="login.php" class="nav-link"><i style="color:#676EFF;" class="fas fa-user-circle"></i> Inloggen <i ></i></a>
                     </li>
                     <?php
                 }
                 ?>
+                <li class="nav-item" style="margin:auto">
+                    <a href="shoppingcart.php">
+                        <i class="fas fa-shopping-cart shopping_cart_icon" style="color:#676EFF;"></i>
+                        <div class="badge badge-danger" id="shoppingcartAmount">
+                            <?php
+                            isset($_SESSION['shoppingcart_amount']) ? print $_SESSION['shoppingcart_amount'] : print 0;
+                            ?>
+                        </div>
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
