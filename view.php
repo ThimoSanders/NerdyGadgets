@@ -7,7 +7,7 @@ $Query = "
            SELECT SI.StockItemID, 
             (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, 
             StockItemName,QuantityOnHand,
-            SearchDetails, IsChillerStock,
+            SearchDetails, IsChillerStock, ChillerStockRoom,
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
@@ -24,6 +24,14 @@ mysqli_stmt_execute($Statement);
 $ReturnableResult = mysqli_stmt_get_result($Statement);
 if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 1) {
     $Result = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC)[0];
+    if ($Result['IsChillerStock'] && isset($Result['ChillerStockRoom'])) {
+        $Query = "SELECT Temperature FROM coldroomtemperatures WHERE ColdRoomSensorNumber = ? ORDER BY ValidFrom";
+        $Statement = mysqli_prepare($Connection, $Query);
+        mysqli_stmt_bind_param($Statement, "i", $Result['ChillerStockRoom']);
+        mysqli_stmt_execute($Statement);
+        $Temp = mysqli_stmt_get_result($Statement);
+        $Temp = mysqli_fetch_all($Temp, MYSQLI_ASSOC)[0];
+    }
 } else {
     $Result = null;
 }
@@ -123,11 +131,11 @@ if ($R) {
                     </div>
                 </div>
                 <?php
-                    if (isset($Result['IsChillerStock'])) {
+                    if ($Result['IsChillerStock'] && isset($Temp)) {
                 ?>
                     <div class="row">
                         <div class="col-12">
-                            <div class="badge accent_background">Gekoeld</div>
+                            <div class="badge accent_background">Gekoeld: <?=$Temp['Temperature']?>°C</div>
                         </div>
                     </div>
                 <?php
