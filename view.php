@@ -126,7 +126,7 @@ if ($R) {
                 <div class="row">
                     <div class="col-md-4">
                         <?php if (($Result['QuantityOnHand'] >0 && $Result['QuantityOnHand'] < 100)){
-                            $quantityText = "Beperkte voorraad beschikbaar";
+                            $quantityText = "Nog maar " . ($Result ['QuantityOnHand']) . " beschikbaar ";
                             $quantityStyle = "background-color: #ffc107;";
                         } if (($Result['QuantityOnHand'] <=0 )){
                             $quantityText = "Tijdelijk uitverkocht";
