@@ -7,7 +7,7 @@ $Query = "
            SELECT SI.StockItemID, 
             (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, 
             StockItemName,QuantityOnHand,
-            SearchDetails,  
+            SearchDetails, IsChillerStock,
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
@@ -112,7 +112,7 @@ if ($R) {
                 ?>
             </div>
             <div class="col-lg-8">
-                <div class="row" >
+                <div class="row">
                     <div class="col-md-9">
                         <h2 class="StockItemNameViewSize StockItemName"><?php print $Result['StockItemName']; ?></h2>
                     </div>
@@ -122,6 +122,17 @@ if ($R) {
                         <h6> Inclusief BTW </h6>
                     </div>
                 </div>
+                <?php
+                    if (isset($Result['IsChillerStock'])) {
+                ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="badge accent_background">Gekoeld</div>
+                        </div>
+                    </div>
+                <?php
+                    }
+                ?>
 <!--                    TODO: fix layout itemstock and addtocart form-->
                 <div class="row">
                     <div class="col-md-4">

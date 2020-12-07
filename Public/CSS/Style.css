@@ -510,3 +510,7 @@ ul#ul-class-price li {
     margin-top: 7px;
     margin-bottom: 7px;
 }
+
+.accent_background {
+    background-color: #676EFF;
+}
