@@ -93,10 +93,7 @@ if (isset($_POST['reg_user'])) {
 
     if(!$hoofdletter || !$kleineletter || !$nummer || !$karater || strlen($password_1) < 8) {
         $errors = TRUE;
-        print("<br>Het wachtwoord voldoet niet aan de eisen!");
-    }
-    else {
-        print("Het werkt");
+        print("<br> Het wachtwoord voldoet niet aan de eisen!");
     }
 
     if ($password_1 != $password_2) {
@@ -117,7 +114,7 @@ if (isset($_POST['reg_user'])) {
     }
 
 // a user does not already exist with the same username and/or email
-    $user_check_query = "SELECT * FROM people WHERE FullName='$FullName' OR EmailAddress='$EmailAddress' LIMIT 1";
+    $user_check_query = "SELECT * FROM people WHERE LogonName='$EmailAddress' LIMIT 1";
     $result = mysqli_query($connectie, $user_check_query);
     $user = mysqli_fetch_assoc($result);
 
@@ -128,6 +125,7 @@ if (isset($_POST['reg_user'])) {
             echo "<br> Email is al in gebruik. ";
         }
     }
+
 // register user if there are no errors
     if ($errors == FALSE) {
         $password = password_hash($password_1, PASSWORD_DEFAULT);
