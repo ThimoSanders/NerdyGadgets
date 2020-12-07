@@ -233,7 +233,7 @@ if (isset($amount)) {
                     <p class="StockItemName"><?php print $row["StockItemName"]; ?></p>
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
                     <?php if (($row['QuantityOnHand'] >0 && $row['QuantityOnHand'] < 100)){
-                        $quantityText = "Beperkte voorraad beschikbaar";
+                        $quantityText =  "Nog maar " . ($row ['QuantityOnHand']) . " beschikbaar ";
                         $quantityStyle = "background-color: #ffc107;";
                     } if (($row['QuantityOnHand'] <=0 )){
                         $quantityText = "Tijdelijk uitverkocht";
