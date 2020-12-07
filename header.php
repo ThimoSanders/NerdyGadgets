@@ -106,7 +106,7 @@ $HeaderStockGroups = mysqli_stmt_get_result($Statement);
                     <?php
                 } else {
                     ?>
-                    <li class="nav-item">
+                    <li class="nav-item mr-2 ">
                         <a href="login.php" class="nav-link"><i style="color:#676EFF;" class="fas fa-user-circle"></i> Inloggen <i ></i></a>
                     </li>
                     <?php
