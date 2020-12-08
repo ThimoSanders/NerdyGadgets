@@ -152,7 +152,7 @@ if ($R) {
                             $quantityStyle = "background-color: #dc3545;";
                         } if (($Result['QuantityOnHand'] >=100)){
                             $quantityText = "Ruime voorraad beschikbaar";
-                            $quantityStyle = "background-color: #676EFF;";
+                            $quantityStyle = "background-color: #2F2F78;";
                         } ?>
                         <div class="badge" style="<?=$quantityStyle?>>"><?= $quantityText?></div>
                     </div>
