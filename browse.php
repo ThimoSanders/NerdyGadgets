@@ -240,7 +240,7 @@ if (isset($amount)) {
                         $quantityStyle = "background-color: #dc3545;";
                     } if (($row['QuantityOnHand'] >=100)){
                         $quantityText = "Ruime voorraad beschikbaar";
-                        $quantityStyle = "background-color: #676EFF;";
+                        $quantityStyle = "background-color: #2F2F78;";
                     } ?>
                     <div class="badge ItemQuantity" style="<?=$quantityStyle?>>"><?= $quantityText?></div>
                 </div>

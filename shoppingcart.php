@@ -61,7 +61,7 @@ include __DIR__ . "/header.php";
                     <span class="i" id="subtitle"><?= $N[0]['StockItemName'] ?></span>
                 </div>
                 <div class="amount" data-itemid="<?=$productID?>">
-                    <span id="title">Aantal:&nbsp;</span>
+                    <span class="aantal" id="title">Aantal: </span>
                     <div class="ticker">
                         <input
                                 class="ShoppingQuantity"
@@ -86,10 +86,9 @@ include __DIR__ . "/header.php";
         $_SESSION['totalPrice'] = $totalPrice;
     }
     ?>
-    <hr style="border-color: #000;margin-top: 70px">
+    <hr style="border-color: white ;margin-top: 70px">
 
     <div class="__q98">
-        <!--        <span class="i" id="shipping">Verzendkosten: &euro;3,50</span>-->
         <span class="i" id="total">Totaal: &euro;<?=$totalPrice?></span>
         <a href="checkout.php">
             <button class="buttonBold btn btn-success" id="Pay">Verder naar bestellen</button>
@@ -192,7 +191,7 @@ include __DIR__ . "/header.php";
 
     .mid-wrapper > #item {
         padding: 20px;
-        border: 2px solid #000;
+        border: 1px solid white;
         margin: 25px 0;
         position: relative;
     }
@@ -201,7 +200,7 @@ include __DIR__ . "/header.php";
         --size: 60px;
         position: absolute;
         display: block;
-        border: 2px solid #000;
+        border: 1px solid white;
         width: var(--size);
         height: var(--size);
         top: 50%;
@@ -242,8 +241,8 @@ include __DIR__ . "/header.php";
     .mid-wrapper > #item > .amount > button {
         color: #F54052;
         position: absolute;
-        margin-top: -10px;
-        margin-left: 100px;
+        margin-top: -35px;
+        margin-left: 250px;
     }
     .mid-wrapper > #item > .amount > button:hover {
         color:white;
@@ -288,11 +287,18 @@ include __DIR__ . "/header.php";
 
     .mid-wrapper > .__q98 > #pay {
         margin-top: 50px;
-        border: 2px solid #000;
+        border: 1px solid white;
         padding: 10px 40px;
         font-size: 18px;
         background: #FFF;
     }
+    .ShoppingQuantity{
+        margin-left: 100px;
+    }
+    .aantal{
+        margin-left: 90px;
+    }
+
 
 
 </style>
