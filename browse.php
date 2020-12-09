@@ -225,7 +225,7 @@ if (isset($amount)) {
 
                     <div id="StockItemFrameRight">
                         <div class="CenterPriceLeftChild">
-                            <h1 class="StockItemPriceText"><?php print sprintf("€ %0.2f", $row["SellPrice"]); ?></h1>
+                            <h1 class="StockItemPriceText"><?php print str_replace( ".", ",", sprintf("€ %0.2f", $row["SellPrice"])); ?></h1>
                             <h6>Inclusief BTW </h6>
                         </div>
                     </div>

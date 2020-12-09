@@ -11,7 +11,7 @@ include __DIR__ . "/messages.php";
                 </div>
                 <ul id="ul-class-price">
 
-                    <li class="HomePagePrice">€30.95</li>
+                    <li class="HomePagePrice">€30,95</li>
                 </ul>
 
         </div>

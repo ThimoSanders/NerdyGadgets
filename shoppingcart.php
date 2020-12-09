@@ -76,7 +76,7 @@ include __DIR__ . "/header.php";
                 </div>
                 <div class="price">
                     <span class="CartItemPrice" id="value">
-                        &euro;<?=$N[0]['RecommendedRetailPrice'] * $value?>
+                        &euro;<?= str_replace(".", ",",$N[0]['RecommendedRetailPrice'] * $value)?>
                     </span>
                 </div>
             </div>
@@ -89,7 +89,7 @@ include __DIR__ . "/header.php";
     <hr style="border-color: white ;margin-top: 70px">
 
     <div class="__q98">
-        <span class="i" id="total">Totaal: &euro;<?=$totalPrice?></span>
+        <span class="i" id="total">Totaal: &euro;<?=str_replace(".", ",", $totalPrice)?></span>
         <a href="checkout.php">
             <button class="buttonBold btn btn-success" id="Pay">Verder naar bestellen</button>
         </a>
@@ -137,12 +137,12 @@ include __DIR__ . "/header.php";
                     if (quantity == 0) {
                         element.remove();
                     } else {
-                        let value = (price * quantity).toFixed(2);
+                        let value = (price * quantity).toFixed(2).replace('.', ',');
                         element.data('totalprice', value);
                         priceElement.text('€'+ value);
                     }
                     $("#shoppingcartAmount").text(res.totalAmount);
-                    $("#total").text('Totaal: €'+calculateTotalPrice().toFixed(2));
+                    $("#total").text('Totaal: €'+calculateTotalPrice().toFixed(2).replace('.', ','));
                     if (res.totalAmount == 0) {
                         $(".emptyShoppingcart").html("<h1>Er zit niks in je winkelwagen.</h1>")
                     }
