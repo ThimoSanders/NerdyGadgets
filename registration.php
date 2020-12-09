@@ -13,11 +13,13 @@ include __DIR__ . "/header.php"; ?>
             <div class="textbox">
             <label><b>Naam:</label>
                 <div class="textbox">
-                    <input type="text" name="username" value="" placeholder="Naam">
+                    <input type="text" name="username" value="<?php if(isset($_POST['reg_user'])){
+                        echo $_POST['username'];} ?>" placeholder="Naam" required value="">
                 </div>
                     <label>Email:</label>
                 <div class="textbox">
-                    <input type="email" name="email" value="" placeholder="Email">
+                    <input type="email" name="email" value="<?php if(isset($_POST['reg_user'])){
+                        echo $_POST['email'];} ?>" placeholder="Email" required value="">
                 </div>
                     <label>Wachtwoord:</label>
                 <div class="textbox">
@@ -30,17 +32,19 @@ include __DIR__ . "/header.php"; ?>
                 </div>
                 <label>Land:</label>
                 <div class="textbox">
-                    <input type="Land" name="country" placeholder="Land">
+                    <input type="Land" name="country" value="<?php if(isset($_POST['reg_user'])){
+                        echo $_POST['country'];} ?>" placeholder="Land" required value="">
                 </div>
                 <label>Adres:</label>
                 <div class="textbox">
-                    <input type="Address" name="address" placeholder="Adres">
+                    <input type="Address" name="address" value="<?php if(isset($_POST['reg_user'])){
+                        echo $_POST['address'];} ?>" placeholder="Adres" required value="">
                 </div>
                 <label>Postcode:</label>
                 <div class="textbox">
-                    <input type="Postalcode" name="postalcode" placeholder="Postcode">
+                    <input type="Postalcode" name="postalcode" value="<?php if(isset($_POST['reg_user'])){
+                        echo $_POST['postalcode'];} ?>" placeholder="Postcode" required value="">
                 </div>
-
                 <input type="submit" name="reg_user" value="Registreren" />
         </form>
         </div>
@@ -76,11 +80,9 @@ if (isset($_POST['reg_user'])) {
 
     if (empty($FullName)) {
         $errors = TRUE;
-        echo "<br> Naam is niet ingevuld. ";
     }
     if (empty($EmailAddress)) {
         $errors = TRUE;
-        echo "<br> Email is niet ingevuld.";
     }
     if (empty($password_1)) {
         $errors = TRUE;
@@ -102,15 +104,12 @@ if (isset($_POST['reg_user'])) {
     }
     if (empty($Country)) {
         $errors = TRUE;
-        echo "<br> Land is niet ingevuld. ";
     }
     if (empty($Address)) {
         $errors = TRUE;
-        echo "<br> Adres is niet ingevuld. ";
     }
     if (empty($Postalcode)) {
         $errors = TRUE;
-        echo "<br> Postcode is niet ingevuld. ";
     }
 
 // a user does not already exist with the same username and/or email
