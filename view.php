@@ -125,7 +125,7 @@ if ($R) {
                         <h2 class="StockItemNameViewSize StockItemName"><?php print $Result['StockItemName']; ?></h2>
                     </div>
                     <div class="col-md-3" style="text-align: right">
-                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Result['SellPrice']); ?></b>
+                        <p class="StockItemPriceText"><b><?php print str_replace(".", ",", sprintf("€ %.2f", $Result['SellPrice'])); ?></b>
                         </p>
                         <h6> Inclusief BTW </h6>
                     </div>
