@@ -142,7 +142,7 @@ if (isset($_POST['reg_user'])) {
         </script>
         <?php
         $_SESSION['username'] = $FullName;
-        $_SESSION["login"] = ["FullName"=> $FullName, "LogonName"=>$EmailAddress, "Country" => $Country, "Address" => $Address, "PostalCode" => $Postalcode];
+        $_SESSION["login"] = ["PersonID"=> $people[0]["PersonID"], "FullName"=> $FullName, "LogonName"=>$EmailAddress, "Country" => $Country, "Address" => $Address, "PostalCode" => $Postalcode];
     }
 }
 ?>

@@ -101,6 +101,7 @@ $HeaderStockGroups = mysqli_stmt_get_result($Statement);
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
                             <a class="dropdown-item" href="Uitloggen.php">Uitloggen</a>
+                            <a class="dropdown-item" href="history.php">Geschiedenis</a>
                         </div>
                     </li>
                     <?php

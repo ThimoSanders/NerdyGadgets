@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . "/header.php";
+include __DIR__ . "/connect.php";
 ?>
 
     <div class="z">
@@ -18,23 +19,35 @@ if (isset($_POST["knop"])) {
     $Postalcode= $_POST["postcode"];
     $LogonName= $_POST["email"];
     $Price= $_SESSION["totalPrice"];
+    $PersonID = $_SESSION["login"]["PersonID"];
+
+    $Query2= "INSERT INTO order2 (PersonID, FullName, Country, Address, Postalcode, LogonName, Price)
+          VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $statement2 = mysqli_prepare($Connection, $Query2);
+    mysqli_stmt_bind_param($statement2, "isssssd",$PersonID, $FullName, $Country, $Address, $Postalcode, $LogonName, $Price);
+    mysqli_stmt_execute($statement2);
+    $order_id = $statement2->insert_id;
+    }
 
     foreach ($_SESSION['shoppingcart'] as $productID => $value) {
-        $Connection = mysqli_connect("localhost", "root", "", "nerdygadgets", "3306");
-        $Query= "UPDATE stockitemholdings 
-         SET QuantityOnHand = QuantityOnHand - ?  
+        $Query= "UPDATE stockitemholdings
+         SET QuantityOnHand = QuantityOnHand - ?
          WHERE StockItemID = ?";
         $statement = mysqli_prepare($Connection, $Query);
         mysqli_stmt_bind_param($statement, "ii", $value, $productID);
         mysqli_stmt_execute($statement);
     }
 
-    $Query2= "INSERT INTO order2 (FullName, Country, Address, Postalcode, LogonName, Price)
-          VALUES (?, ?, ?, ?, ?, ?)";
-    $statement2 = mysqli_prepare($Connection, $Query2);
-    mysqli_stmt_bind_param($statement2, "sssssd", $FullName, $Country, $Address, $Postalcode, $LogonName, $Price);
-    mysqli_stmt_execute($statement2);
-}
+    foreach ($_SESSION['shoppingcart'] as $productID => $value) {
+        $Query= "INSERT INTO orderlines
+         (OrderID, StockItemID, PackageTypeID, Quantity, LastEditedBy)
+         VALUES (?,?,7,?,4)";
+        $statement = mysqli_prepare($Connection, $Query);
+        mysqli_stmt_bind_param($statement, "iii", $order_id, $productID, $value);
+        mysqli_stmt_execute($statement);
+    }
+
+
 
 include "footer.php";
 ?>
