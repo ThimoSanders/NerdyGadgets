@@ -68,8 +68,8 @@ if(isset($_POST["knop"])) {
         $password = $people[0]["HashedPassword"];
 
         if (password_verify($wachtwoord, $password)) {
-            $_SESSION["login"] = ["FullName"=> $people[0]["FullName"], "LogonName"=>$account, "Country" => $people[0]["Country"], "Address" => $people[0]["Address"], "PostalCode" => $people[0]["PostalCode"]];
-?>
+            $_SESSION["login"] = ["PersonID"=> $people[0]["PersonID"], "FullName"=> $people[0]["FullName"], "LogonName"=>$account, "Country" => $people[0]["Country"], "Address" => $people[0]["Address"], "PostalCode" => $people[0]["PostalCode"]];
+            ?>
             <div class='LoginMelding'> U bent ingelogd!</div>
                     <script>
                         window.location.href = "http://localhost/NerdyGadgets/?message=login_success";
