@@ -71,9 +71,9 @@ if (!isset($_SESSION['login'])) {
                         $order = $ordernummer['OrdorID'];
                         ?><b>Ordernummer:</b> <?php print($order);
                         print("<br>");
-                        ?><b>Datum:</b> <?php print($ordernummer['OrderDate']);
+                        ?><b>Datum:</b> <?php print(date("d-m-Y H:i", strtotime($ordernummer['OrderDate'])));
                         print("<br>");
-                        ?><b>Prijs:</b> <?php print($ordernummer['Price']);
+                        ?><b>Prijs:</b> €<?php print str_replace(".",",", $ordernummer['Price']);
                         print("<br>");
 
                         ?>
