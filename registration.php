@@ -1,5 +1,7 @@
 <?php
-include __DIR__ . "/header.php"; ?>
+include __DIR__ . "/header.php";
+include __DIR__ . "/connect.php";
+?>
 <!DOCTYPE html>
     <html>
     <head>
@@ -58,25 +60,25 @@ $FullName = "";
 $EmailAddress = "";
 $errors = FALSE;
 
-$host = "localhost";
-$databasename = "nerdygadgets";
-$user = "root";
-$pass = "";
-$port = 3306;
-$connectie = mysqli_connect($host, $user, $pass, $databasename, $port);
+//$host = "localhost";
+//$databasename = "nerdygadgets";
+//$user = "root";
+//$pass = "";
+//$port = 3306;
+//$connectie = mysqli_connect($host, $user, $pass, $databasename, $port);
 
 $sql = "SELECT * FROM people";
-$result = mysqli_query($connectie, $sql);
+$result = mysqli_query($Connection, $sql);
 $people = mysqli_fetch_all($result,MYSQLI_ASSOC);
 
 if (isset($_POST['reg_user'])) {
-    $FullName = mysqli_real_escape_string($connectie, $_POST['username']);
-    $EmailAddress = mysqli_real_escape_string($connectie, $_POST['email']);
-    $password_1 = mysqli_real_escape_string($connectie, $_POST['password_1']);
-    $password_2 = mysqli_real_escape_string($connectie, $_POST['password_2']);
-    $Country = mysqli_real_escape_string($connectie, $_POST['country']);
-    $Address = mysqli_real_escape_string($connectie, $_POST['address']);
-    $Postalcode = mysqli_real_escape_string($connectie, $_POST['postalcode']);
+    $FullName = mysqli_real_escape_string($Connection, $_POST['username']);
+    $EmailAddress = mysqli_real_escape_string($Connection, $_POST['email']);
+    $password_1 = mysqli_real_escape_string($Connection, $_POST['password_1']);
+    $password_2 = mysqli_real_escape_string($Connection, $_POST['password_2']);
+    $Country = mysqli_real_escape_string($Connection, $_POST['country']);
+    $Address = mysqli_real_escape_string($Connection, $_POST['address']);
+    $Postalcode = mysqli_real_escape_string($Connection, $_POST['postalcode']);
 
     if (empty($FullName)) {
         $errors = TRUE;
@@ -114,7 +116,7 @@ if (isset($_POST['reg_user'])) {
 
 // a user does not already exist with the same username and/or email
     $user_check_query = "SELECT * FROM people WHERE LogonName='$EmailAddress' LIMIT 1";
-    $result = mysqli_query($connectie, $user_check_query);
+    $result = mysqli_query($Connection, $user_check_query);
     $user = mysqli_fetch_assoc($result);
 
 // if Email already exists
@@ -131,7 +133,7 @@ if (isset($_POST['reg_user'])) {
 
         $query = "INSERT INTO people (FullName, LogonName, HashedPassword, Country, Address, Postalcode, IsPermittedToLogon, LastEditedBy) 
             VALUES( ?, ?, ?, ?, ?, ?, 'TRUE', 1)";
-        $statement = mysqli_prepare($connectie, $query);
+        $statement = mysqli_prepare($Connection, $query);
         mysqli_stmt_bind_param($statement, "ssssss", $FullName, $EmailAddress, $password, $Country, $Address, $Postalcode);
         mysqli_stmt_execute($statement);
 

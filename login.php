@@ -37,15 +37,15 @@ if(isset($_POST["knop"])) {
     $email = $_POST["naam"];
     $wachtwoord = $_POST["wachtwoord"];
     //VERBINDING MAKEN - Hier geef je de rechten en de locatie waar de database staat.
-    $host = "localhost";
-    $databasename = "nerdygadgets";
-    $user = "root";
-    $pass = "";
-    $port = 3306;
-    $connection = mysqli_connect($host, $user, $pass, $databasename, $port);
+//    $host = "localhost";
+//    $databasename = "nerdygadgets";
+//    $user = "root";
+//    $pass = "";
+//    $port = 3306;
+//    $connection = mysqli_connect($host, $user, $pass, $databasename, $port);
 
     //DB server ‘voorbereiden’ dat er SQL statement aankomt met parameter
-    $statement = mysqli_prepare($connection, "SELECT * FROM people WHERE LogonName=?");
+    $statement = mysqli_prepare($Connection, "SELECT * FROM people WHERE LogonName=?");
 
     // ? koppelen aan variabele
     mysqli_stmt_bind_param($statement, 's', $email); // i = integer; s = string;
@@ -60,7 +60,7 @@ if(isset($_POST["knop"])) {
     $people = mysqli_fetch_all($result,MYSQLI_ASSOC);
 
     //VERVINDING OPRUIMEN - verbinding sluiten met de database
-    mysqli_close($connection);
+    mysqli_close($Connection);
 
     #Kijkt of er een account bestaat met de ingevulde account naam.
     if (count($people) > 0) {

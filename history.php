@@ -23,15 +23,15 @@ else {
     print("<br><br>");
 
 //VERBINDING MAKEN - Hier geef je de rechten en de locatie waar de database staat.
-    $host = "localhost";
-    $databasename = "nerdygadgets";
-    $user = "root";
-    $pass = "";
-    $port = 3306;
-    $connection = mysqli_connect($host, $user, $pass, $databasename, $port);
+//    $host = "localhost";
+//    $databasename = "nerdygadgets";
+//    $user = "root";
+//    $pass = "";
+//    $port = 3306;
+//    $connection = mysqli_connect($host, $user, $pass, $databasename, $port);
 
 //DB server ‘voorbereiden’ dat er SQL statement aankomt met parameter
-    $statement = mysqli_prepare($connection, "SELECT OrdorID, Price, OrderDate FROM order2 WHERE PersonID IN (SELECT PersonID FROM people WHERE PersonID = ?)");
+    $statement = mysqli_prepare($Connection, "SELECT OrdorID, Price, OrderDate FROM order2 WHERE PersonID IN (SELECT PersonID FROM people WHERE PersonID = ?)");
 
 // ? koppelen aan variabele
     mysqli_stmt_bind_param($statement, 'i', $personID); // i = integer; s = string;
@@ -80,7 +80,7 @@ if (!isset($_SESSION['login'])) {
                     </div>
                     <div class="col-6" >
                         <?php
-                        $statement1 = mysqli_prepare($connection, "SELECT StockItemName FROM stockitems WHERE StockItemID IN (SELECT StockItemID FROM orderlines WHERE OrderID = ?) ");
+                        $statement1 = mysqli_prepare($Connection, "SELECT StockItemName FROM stockitems WHERE StockItemID IN (SELECT StockItemID FROM orderlines WHERE OrderID = ?) ");
                         mysqli_stmt_bind_param($statement1, 'i', $order);
                         mysqli_stmt_execute($statement1);
                         $result = mysqli_stmt_get_result($statement1);
