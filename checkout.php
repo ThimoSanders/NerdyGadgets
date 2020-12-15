@@ -46,7 +46,7 @@ $BTW = round($totalPrice - $subTotaal, 2);
                     </div>
 
                 </div>
-                    <input type="submit" name="knop" value="Bestelling afronden" class="kleur buttonBold" >
+                    <input type="submit" name="knop" value="Bestelling afronden" class="kleur buttonBold">
                 <div>
                     <label>Subtotaal: &euro; <?= str_replace(".", ",", $subTotaal) ?></label>
                     <label>BTW: &euro; <?= str_replace(".", ",",  $BTW) ?></label>
