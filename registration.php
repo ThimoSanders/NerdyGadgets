@@ -44,6 +44,7 @@ include __DIR__ . "/header.php"; ?>
                 <div class="textbox">
                     <input type="Postalcode" name="postalcode" value="<?php if(isset($_POST['reg_user'])){
                         echo $_POST['postalcode'];} ?>" placeholder="Postcode" required value="">
+                    <p style="font-size: small; color: black">Voorbeeld: AABB 11</p>
                 </div>
                 <input type="submit" name="reg_user" value="Registreren" />
         </form>
@@ -88,6 +89,7 @@ if (isset($_POST['reg_user'])) {
         $errors = TRUE;
         echo "<br> Wachtwoord is niet ingevuld. ";
     }
+
     $hoofdletter = preg_match('@[A-Z]@', $password_1);
     $kleineletter = preg_match('@[a-z]@', $password_1);
     $nummer = preg_match('@[0-9]{2,}@', $password_1);
@@ -97,7 +99,6 @@ if (isset($_POST['reg_user'])) {
         $errors = TRUE;
         print("<br> Het wachtwoord voldoet niet aan de eisen!");
     }
-
     if ($password_1 != $password_2) {
         $errors = TRUE;
         echo "<br> De twee wachtwoorden komen niet overheen. ";
@@ -108,8 +109,10 @@ if (isset($_POST['reg_user'])) {
     if (empty($Address)) {
         $errors = TRUE;
     }
-    if (empty($Postalcode)) {
+
+    if(!preg_match('/^[0-9]{4}\s[a-z]{2}$/i', $Postalcode)){
         $errors = TRUE;
+        print("<br> De postcode is niet correct!");
     }
 
 // a user does not already exist with the same username and/or email
