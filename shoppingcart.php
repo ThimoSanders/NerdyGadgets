@@ -1,6 +1,7 @@
 <?php
 
 include __DIR__ . "/header.php";
+include __DIR__ . "/connect.php";
 
 ?>
 
@@ -23,7 +24,7 @@ include __DIR__ . "/header.php";
         foreach ($_SESSION['shoppingcart'] as $productID => $value) {
             //prints the key, in this case the "StockItemID"
 
-            $Connection = mysqli_connect("localhost", "root", "", "nerdygadgets", "3306");
+//            $Connection = mysqli_connect("localhost", "root", "", "nerdygadgets", "3306");
 
             $Query = "SELECT ImagePath
               FROM stockitemimages 
