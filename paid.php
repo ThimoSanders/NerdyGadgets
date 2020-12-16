@@ -19,7 +19,12 @@ if (isset($_POST["knop"])) {
     $Postalcode = $_POST["postcode"];
     $LogonName = $_POST["email"];
     $Price = $_SESSION["totalPrice"];
-    $PersonID = $_SESSION["login"]["PersonID"];
+    if (isset ($_SESSION["login"])) {
+        $PersonID = $_SESSION["login"]["PersonID"];
+    }
+    else { $personID = NULL;
+    }
+
 
     $Connection->autocommit(false);
 
