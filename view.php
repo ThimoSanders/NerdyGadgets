@@ -183,11 +183,11 @@ if ($R) {
         </div>
         <div class="row mt-4 StockItemDescriptionBox">
             <div class="col-md-6">
-                <h3>Artikel beschrijving</h3>
+                <h3>Artikelbeschrijving</h3>
                 <p><?php print $Result['SearchDetails']; ?></p>
             </div>
             <div class="col-md-6">
-                <h3>Artikel specificaties</h3>
+                <h3>Artikelspecificaties</h3>
                 <?php
                 $CustomFields = json_decode($Result['CustomFields'], true);
                 if (is_array($CustomFields)) { ?>
